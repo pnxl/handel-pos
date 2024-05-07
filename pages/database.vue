@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
 
 const config = useRuntimeConfig();
