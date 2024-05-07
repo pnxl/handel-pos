@@ -6,26 +6,39 @@
         {{ quote }}
       </p>
     </div>
-    <div class="flex flex-row gap-x-8 h-full">
+    <div class="flex flex-row gap-x-2 max-h-[87%]">
       <div
-        class="h-full overflow-y-auto p-6 flex flex-col gap-y-6 bg-gray-50 rounded-xl w-full"
+        class="overflow-y-auto p-6 flex flex-col gap-y-6 bg-gray-50 rounded-l-xl"
       >
         <div class="flex flex-col gap-y-4">
           <h1 class="font-bold text-xl">Smoothies</h1>
-          <div class="flex flex-row gap-x-4">
-            <div class="rounded-xl border-gray-300 border-2 w-40">
-              <div class="p-4">a</div>
-            </div>
-            <div class="rounded-xl border-gray-300 border-2 w-40">
-              <div class="p-4">a</div>
-            </div>
-            <div class="rounded-xl border-gray-300 border-2 w-40">
-              <div class="p-4">a</div>
+          <div class="flex flex-wrap gap-x-4 gap-y-4">
+            <div
+              class="rounded-xl border-gray-300 border-2 w-40 flex-auto hover:border-indigo-400"
+              v-for="item in menuItems"
+              :key="item.id"
+            >
+              <img
+                :src="`${config.public.databaseUrl}/storage/v1/object/public/menu/${item.image}`"
+                class="rounded-t-xl h-40 w-full object-cover aspect-square"
+              />
+              <div class="p-4 flex flex-col gap-y-2">
+                <p class="text-lg font-semibold">{{ item.name }}</p>
+                <p class="opacity-75 mb-4">
+                  {{ String(item.ingredients.join(", ")) }}
+                </p>
+                <p class="">Rp {{ item.price.toLocaleString("id-id") }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="h-full overflow-y-auto p-6 bg-gray-50 rounded-xl w-1/2"></div>
+      <div
+        class="h-full overflow-y-auto p-6 flex flex-col gap-y-6 bg-gray-50 rounded-r-xl w-2/5"
+      >
+        <h1 class="font-bold text-xl">Smoothies</h1>
+        <div class="flex flex-col gap-y-4"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -41,11 +54,14 @@ const supabase = createClient(
 );
 
 const quote = ref("");
+const menuItems = ref([]);
 
 async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
   quote.value = quotes[Math.floor(Math.random() * quotes.length)].text;
-  console.log(quotes.value);
+
+  const items = (await supabase.from("menu").select()).data;
+  menuItems.value = items;
 }
 
 onMounted(() => {
