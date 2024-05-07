@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen min-w-full max-h-screen flex flex-row bg-gray-100 text-gray-800"
+    class="min-h-screen min-w-screen max-h-screen max-w-screen flex flex-row bg-gray-100 text-gray-800"
   >
     <div class="bg-gray-200 p-4 flex flex-col justify-between gap-y-4">
       <div class="flex flex-col gap-y-4">
