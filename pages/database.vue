@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto h-screen px-8 py-8">
+  <div class="overflow-y-auto h-screen p-8">
     <table class="text-sm text-left w-full table-fixed">
       <caption class="text-lg font-semibold text-left mb-8">
         Database
