@@ -28,7 +28,7 @@
               ' text-center font-medium'
             "
           >
-            Home
+            Cashier
           </p>
         </nuxt-link>
         <nuxt-link to="/database" class="flex flex-col w-full group">
@@ -80,7 +80,9 @@
         </div>
       </nuxt-link>
     </div>
-    <slot />
+    <div class="w-full">
+      <slot />
+    </div>
   </div>
 </template>
 
