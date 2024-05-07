@@ -8,4 +8,10 @@ export default defineNuxtConfig({
     },
   },
   modules: ["nuxt-icon"],
+  runtimeConfig: {
+    public: {
+      databaseUrl: "",
+      anonymousApikey: "",
+    },
+  },
 });
