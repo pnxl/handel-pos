@@ -2,7 +2,88 @@
   <div
     class="min-h-screen min-w-full max-h-screen flex flex-row bg-gray-100 text-gray-800"
   >
-    <div class="bg-gray-200 p-4"></div>
+    <div class="bg-gray-200 p-4 flex flex-col justify-between gap-y-4">
+      <div class="flex flex-col gap-y-4">
+        <nuxt-link to="/" class="flex flex-col w-full group">
+          <div
+            :class="
+              (route.path === '/' ? 'bg-indigo-300' : '') +
+              ' rounded-full bg-opacity-50 px-5 py-1 group group-hover:bg-indigo-200 group-hover:bg-opacity-50'
+            "
+          >
+            <Icon
+              name="mdi:cart"
+              class="text-2xl text-indigo-900 group-hover:scale-110 group-hover:text-indigo-800"
+              v-if="route.path === '/'"
+            />
+            <Icon
+              name="mdi:cart-outline"
+              class="text-2xl text-gray-800 group-hover:scale-110 group-hover:text-indigo-700"
+              v-else
+            />
+          </div>
+          <p
+            :class="
+              (route.path === '/' ? 'text-indigo-900' : 'text-gray-700') +
+              ' text-center font-medium'
+            "
+          >
+            Home
+          </p>
+        </nuxt-link>
+        <nuxt-link to="/database" class="flex flex-col w-full group">
+          <div
+            :class="
+              (route.path === '/database' ? 'bg-indigo-300' : '') +
+              ' rounded-full bg-opacity-50 px-5 py-1 group group-hover:bg-indigo-200 group-hover:bg-opacity-50'
+            "
+          >
+            <Icon
+              name="mdi:database"
+              class="text-2xl text-indigo-900 group-hover:scale-110 group-hover:text-indigo-800"
+              v-if="route.path === '/database'"
+            />
+            <Icon
+              name="mdi:database-outline"
+              class="text-2xl text-gray-800 group-hover:scale-110 group-hover:text-indigo-700"
+              v-else
+            />
+          </div>
+          <p
+            :class="
+              (route.path === '/database'
+                ? 'text-indigo-900'
+                : 'text-gray-700') + ' text-center font-medium'
+            "
+          >
+            Database
+          </p>
+        </nuxt-link>
+      </div>
+      <nuxt-link to="/settings" class="flex flex-col w-full group">
+        <div
+          :class="
+            (route.path === '/settings' ? 'bg-indigo-300' : '') +
+            ' rounded-full bg-opacity-50 mx-auto p-3 w-fit group group-hover:bg-indigo-200 group-hover:bg-opacity-50'
+          "
+        >
+          <Icon
+            name="mdi:gear"
+            class="text-2xl text-indigo-900 group-hover:scale-110 group-hover:text-indigo-800"
+            v-if="route.path === '/settings'"
+          />
+          <Icon
+            name="mdi:gear-outline"
+            class="text-2xl text-gray-800 group-hover:scale-110 group-hover:text-indigo-700"
+            v-else
+          />
+        </div>
+      </nuxt-link>
+    </div>
     <slot />
   </div>
 </template>
+
+<script setup lang="ts">
+const route = useRoute();
+</script>
