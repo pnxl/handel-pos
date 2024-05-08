@@ -17,7 +17,7 @@
           >
             <button
               class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
-              v-for="item in menuItems"
+              v-for="item in items"
               :key="item.id"
               @click="
                 currentOrder.push({
@@ -152,7 +152,7 @@ const supabase = createClient(
 );
 
 const quote = ref("");
-const menuItems = ref([]);
+const itemsList = ref([]);
 const orderId = ref(1);
 const currentOrder = reactive([]);
 const totalPrice = reactive([]);
@@ -161,8 +161,9 @@ async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
   quote.value = quotes[Math.floor(Math.random() * quotes.length)].text;
 
-  const items = (await supabase.from("menu").select()).data;
-  menuItems.value = items;
+  const items = (await supabase.from(config.public.itemsDatabase).select())
+    .data;
+  itemsList.value = items;
 }
 
 onMounted(() => {

@@ -55,11 +55,11 @@ const supabase = createClient(
   config.public.anonymousApikey
 );
 
-const menuItems = ref([]);
+const itemsList = ref([]);
 
 async function getResults() {
-  const { data } = await supabase.from("menu").select();
-  menuItems.value = data;
+  const { data } = await supabase.from(config.public.itemsDatabase).select();
+  itemsList.value = data;
 }
 
 onMounted(() => {
