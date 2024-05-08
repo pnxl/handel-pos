@@ -31,17 +31,17 @@
             Cashier
           </p>
         </nuxt-link>
-        <nuxt-link to="/menu" class="flex flex-col w-full group">
+        <nuxt-link to="/items" class="flex flex-col w-full group">
           <div
             :class="
-              (route.path === '/menu' ? 'bg-indigo-300' : '') +
+              (route.path === '/items' ? 'bg-indigo-300' : '') +
               ' rounded-full bg-opacity-50 px-5 py-1 group group-hover:bg-indigo-200 group-hover:bg-opacity-50'
             "
           >
             <Icon
               name="mdi:list-box"
               class="text-2xl text-indigo-900 group-hover:scale-110 group-hover:text-indigo-800"
-              v-if="route.path === '/menu'"
+              v-if="route.path === '/items'"
             />
             <Icon
               name="mdi:list-box-outline"
@@ -51,11 +51,11 @@
           </div>
           <p
             :class="
-              (route.path === '/menu' ? 'text-indigo-900' : 'text-gray-700') +
+              (route.path === '/items' ? 'text-indigo-900' : 'text-gray-700') +
               ' text-center font-medium'
             "
           >
-            Menu
+            Items
           </p>
         </nuxt-link>
         <nuxt-link to="/history" class="flex flex-col w-full group">
