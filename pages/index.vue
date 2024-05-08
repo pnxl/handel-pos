@@ -48,28 +48,34 @@
       >
         <div class="flex flex-row justify-between gap-x-4">
           <h1 class="font-bold text-xl">Current Order</h1>
-          <!-- <button class="group" @click="currentOrder.splice()">
+          <button class="group" @click="currentOrder.length = 0">
             <Icon
               name="mdi:delete-forever"
               class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-400"
             />
-          </button> -->
+          </button>
         </div>
-        <div class="flex flex-col gap-y-4 overflow-y-auto">
+        <div class="flex flex-col gap-y-6 lg:gap-y-4 overflow-y-auto">
           <div v-for="item in currentOrder" :key="item.id">
-            <div class="flex flex-row justify-between gap-x-4 my-auto">
+            <div
+              class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto"
+            >
               <div class="flex flex-row gap-x-2">
                 <img
                   :src="`${config.public.databaseUrl}/storage/v1/object/public/menu/${item.image}`"
                   class="rounded-xl object-cover aspect-square w-16 h-16"
                 />
                 <div class="my-auto">
-                  <p class="text-lg font-semibold">{{ item.name }}</p>
-                  <p class="">Rp {{ item.price.toLocaleString("id-id") }}</p>
+                  <p class="lg:text-lg font-semibold text-ellipsis">
+                    {{ item.name }}
+                  </p>
+                  <p class="text-ellipsis">
+                    Rp {{ item.price.toLocaleString("id-id") }}
+                  </p>
                 </div>
               </div>
               <button
-                class="group"
+                class="group lg:block hidden"
                 @click="
                   currentOrder.splice(
                     currentOrder.findIndex((i) => i.id === item.id),
@@ -79,8 +85,25 @@
               >
                 <Icon
                   name="mdi:close-circle"
-                  class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-400"
+                  class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-600 lg:group-hover:text-red-400"
                 />
+              </button>
+              <button
+                class="group lg:hidden bg-red-200 rounded-md mt-2 py-1"
+                @click="
+                  currentOrder.splice(
+                    currentOrder.findIndex((i) => i.id === item.id),
+                    1
+                  )
+                "
+              >
+                <div class="flex flex-row mx-auto gap-x-1 w-fit">
+                  <Icon
+                    name="mdi:close-circle"
+                    class="text-2xl my-auto text-red-800 group-hover:text-red-400"
+                  />
+                  <p class="my-auto text-red-800 text-sm">Delete</p>
+                </div>
               </button>
             </div>
           </div>
