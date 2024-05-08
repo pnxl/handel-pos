@@ -48,7 +48,11 @@
       >
         <div class="flex flex-row justify-between gap-x-4">
           <h1 class="font-bold text-xl">Current Order</h1>
-          <button class="group" @click="currentOrder.length = 0">
+          <button
+            class="group"
+            v-if="currentOrder.length !== 0"
+            @click="currentOrder.length = 0"
+          >
             <Icon
               name="mdi:delete-forever"
               class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-400"
