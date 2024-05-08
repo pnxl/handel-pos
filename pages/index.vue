@@ -59,7 +59,7 @@
             />
           </button>
         </div>
-        <div class="flex flex-col gap-y-6 lg:gap-y-4 overflow-y-auto">
+        <div class="flex flex-col gap-y-6 lg:gap-y-4 overflow-y-auto h-full">
           <div v-for="item in currentOrder" :key="item.id">
             <div
               class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto"
