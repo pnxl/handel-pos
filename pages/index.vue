@@ -30,14 +30,17 @@
             >
               <div class="p-3 flex flex-col gap-y-2">
                 <img
-                  :src="`${config.public.databaseUrl}/storage/v1/object/public/menu/${item.image}`"
+                  :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`"
                   class="rounded-xl w-full object-cover aspect-square"
                 />
                 <p class="text-lg font-semibold">{{ item.name }}</p>
                 <p class="opacity-75 mb-4">
-                  {{ String(item.ingredients.join(", ")) }}
+                  {{ item.description }}
                 </p>
-                <p class="">Rp {{ item.price.toLocaleString("id-id") }}</p>
+                <p class="">
+                  {{ config.public.currency
+                  }}{{ item.price.toLocaleString(config.public.locale) }}
+                </p>
               </div>
             </button>
           </div>
@@ -74,7 +77,8 @@
                     {{ item.name }}
                   </p>
                   <p class="text-ellipsis">
-                    Rp {{ item.price.toLocaleString("id-id") }}
+                    {{ config.public.currency
+                    }}{{ item.price.toLocaleString(config.public.locale) }}
                   </p>
                 </div>
               </div>
