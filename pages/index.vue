@@ -25,8 +25,7 @@
                   name: item.name,
                   image: item.image,
                   price: item.price,
-                });
-                console.log(currentOrder);
+                })
               "
             >
               <div class="p-3 flex flex-col gap-y-2">
@@ -47,7 +46,15 @@
       <div
         class="h-full p-6 flex flex-col gap-y-6 bg-gray-50 rounded-r-xl w-1/2"
       >
-        <h1 class="font-bold text-xl">Current Order</h1>
+        <div class="flex flex-row justify-between gap-x-4">
+          <h1 class="font-bold text-xl">Current Order</h1>
+          <!-- <button class="group" @click="currentOrder.splice()">
+            <Icon
+              name="mdi:delete-forever"
+              class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-400"
+            />
+          </button> -->
+        </div>
         <div class="flex flex-col gap-y-4 overflow-y-auto">
           <div v-for="item in currentOrder" :key="item.id">
             <div class="flex flex-row justify-between gap-x-4 my-auto">
