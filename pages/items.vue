@@ -11,7 +11,6 @@
         <tr>
           <th scope="col" class="px-6 py-3">Name</th>
           <th scope="col" class="px-6 py-3 w-1/4">Description</th>
-          <th scope="col" class="px-6 py-3 w-1/4">Ingredients</th>
           <th scope="col" class="px-6 py-3 w-1/4">Price</th>
         </tr>
       </thead>
@@ -32,12 +31,6 @@
             class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
           >
             {{ item.description }}
-          </th>
-          <th
-            scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
-          >
-            {{ item.ingredients }}
           </th>
           <th
             scope="row"
