@@ -121,8 +121,8 @@
           <div class="flex flex-row justify-between">
             <p class="opacity-75 my-auto">{{ currentOrder.length }} items</p>
             <p class="font-medium text-lg my-auto">
-              Rp
-              {{
+              {{ config.public.currency
+              }}{{
                 (totalPrice = currentOrder.reduce(
                   (acc, item) => acc + item.price,
                   0
