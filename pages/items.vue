@@ -2,14 +2,13 @@
   <div class="overflow-y-auto h-screen p-8">
     <table class="text-sm text-left w-full table-fixed">
       <caption class="text-lg font-semibold text-left mb-8">
-        Database
+        Items
         <p class="mt-1 text-sm font-normal text-gray-500 dark:gray-gray-400">
-          Listing all current menu items.
+          Listing all current available items.
         </p>
       </caption>
       <thead class="text-sm font-medium border-b-2 border-gray-300">
         <tr>
-          <th scope="col" class="px-6 py-3 w-1/6">ID</th>
           <th scope="col" class="px-6 py-3">Name</th>
           <th scope="col" class="px-6 py-3 w-1/4">Description</th>
           <th scope="col" class="px-6 py-3 w-1/4">Ingredients</th>
@@ -22,12 +21,6 @@
           :key="item.id"
           class="border-b border-gray-200 hover:bg-gray-200/50"
         >
-          <th
-            scope="row"
-            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
-          >
-            {{ item.id }}
-          </th>
           <th
             scope="row"
             class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
