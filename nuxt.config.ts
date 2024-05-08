@@ -12,6 +12,9 @@ export default defineNuxtConfig({
     public: {
       databaseUrl: "",
       anonymousApikey: "",
+      locale: "",
+      currency: "",
+      imageBucket: "",
     },
   },
 });
