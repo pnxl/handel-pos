@@ -36,7 +36,8 @@
             scope="row"
             class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
           >
-            Rp {{ item.price.toLocaleString("id-id") }}
+            {{ config.public.currency
+            }}{{ item.price.toLocaleString(config.public.locale) }}
           </th>
         </tr>
       </tbody>
