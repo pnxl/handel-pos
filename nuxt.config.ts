@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       locale: "",
       currency: "",
       imageBucket: "",
+      itemsDatabase: "",
     },
   },
 });
