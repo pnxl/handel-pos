@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in menuItems"
+          v-for="item in itemsList"
           :key="item.id"
           class="border-b border-gray-200 hover:bg-gray-200/50"
         >
