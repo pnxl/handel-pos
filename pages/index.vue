@@ -126,7 +126,7 @@
                 (totalPrice = currentOrder.reduce(
                   (acc, item) => acc + item.price,
                   0
-                )).toLocaleString("id-id")
+                )).toLocaleString(config.public.locale)
               }}
             </p>
           </div>
