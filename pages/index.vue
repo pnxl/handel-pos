@@ -92,6 +92,11 @@
               }}
             </p>
           </div>
+          <button
+            class="w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold text-gray-50"
+          >
+            Add to database
+          </button>
         </div>
       </div>
     </div>
