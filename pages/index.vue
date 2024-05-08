@@ -17,7 +17,7 @@
           >
             <button
               class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
-              v-for="item in items"
+              v-for="item in itemsList"
               :key="item.id"
               @click="
                 currentOrder.push({
