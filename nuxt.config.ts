@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     },
   },
   modules: ["nuxt-icon"],
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
   runtimeConfig: {
     public: {
       databaseUrl: "",
