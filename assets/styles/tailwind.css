@@ -6,3 +6,14 @@
   @apply transition-all duration-[250ms];
   /* @apply border border-red-500; */
 }
+
+::-webkit-scrollbar {
+  @apply w-1;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  @apply bg-gray-300 rounded-full;
+}
