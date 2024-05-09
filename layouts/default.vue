@@ -58,7 +58,11 @@
             Items
           </p>
         </nuxt-link>
-        <nuxt-link to="/history" class="flex flex-col w-full group">
+        <nuxt-link
+          to="/history"
+          class="flex flex-col w-full group"
+          v-if="config.public.historyDatabase !== ''"
+        >
           <div
             :class="
               (route.path === '/history' ? 'bg-indigo-300' : '') +
@@ -115,4 +119,5 @@
 
 <script setup lang="ts">
 const route = useRoute();
+const config = useRuntimeConfig();
 </script>
