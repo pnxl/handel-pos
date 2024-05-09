@@ -103,7 +103,7 @@
     </div>
     <div class="flex flex-row gap-x-2 max-h-[87%] h-full">
       <div
-        class="overflow-y-auto p-6 flex h-full flex-col gap-y-6 w-full bg-gray-50 rounded-l-xl"
+        class="overflow-y-auto p-6 border border-gray-200 flex h-full flex-col gap-y-6 w-full bg-gray-50 rounded-l-xl"
       >
         <div class="flex flex-col h-full gap-y-4">
           <div
@@ -266,7 +266,7 @@
         </div>
       </div>
       <div
-        class="h-full p-6 flex flex-col gap-y-6 bg-gray-50 rounded-r-xl w-1/2"
+        class="h-full p-6 flex flex-col gap-y-6 bg-gray-50 border border-gray-200 rounded-r-xl w-1/2"
       >
         <div class="flex flex-row justify-between gap-x-4">
           <h1 class="font-bold text-xl">Current Order</h1>
