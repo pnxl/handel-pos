@@ -197,7 +197,7 @@ onMounted(() => {
 }
 .currentOrder-leave-to {
   opacity: 0;
-  transform: translateY(1rem);
+  transform: translateY(0.125rem);
 }
 .currentOrder-leave-active {
   position: absolute;
