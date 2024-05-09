@@ -9,8 +9,8 @@
       </caption>
       <thead class="text-sm font-medium border-b-2 border-gray-300">
         <tr>
-          <th scope="col" class="px-6 py-3">Name</th>
-          <th scope="col" class="px-6 py-3 w-1/4">Description</th>
+          <th scope="col" class="px-6 py-3 w-1/4">Name</th>
+          <th scope="col" class="px-6 py-3">Description</th>
           <th scope="col" class="px-6 py-3 w-1/4">Price</th>
         </tr>
       </thead>
