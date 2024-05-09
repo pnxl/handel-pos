@@ -1,10 +1,13 @@
 <template>
   <div class="p-8 flex flex-col w-full gap-y-8 h-full">
-    <div class="text-lg font-semibold text-left">
-      Cashier
-      <p class="mt-1 text-sm font-normal text-gray-500">
-        {{ quote }}
+    <div class="w-full flex justify-between flex-row gap-x-16">
+      <p class="text-lg font-semibold text-left flex flex-col my-auto">
+        Cashier
+        <span class="mt-1 text-sm font-normal text-gray-500">
+          {{ quote }}
+        </span>
       </p>
+      <div class="my-auto" v-if="config.public.usersDatabase !== ''"></div>
     </div>
     <div class="flex flex-row gap-x-2 max-h-[87%] h-full">
       <div
@@ -309,6 +312,7 @@ const itemsSkeleton = ref(true);
 const orderId = ref(1);
 const currentOrder = reactive([]);
 const totalPrice = reactive([]);
+const usersList = ref([]);
 
 async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
@@ -317,6 +321,12 @@ async function getResults() {
   const items = (await supabase.from(config.public.itemsDatabase).select())
     .data;
   itemsList.value = items;
+
+  if (config.public.usersDatabase !== "") {
+    const users = (await supabase.from(config.public.usersDatabase).select())
+      .data;
+    usersList.value = users;
+  }
 
   itemsSkeleton.value = false;
 }

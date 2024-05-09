@@ -19,6 +19,8 @@ export default defineNuxtConfig({
       currency: "",
       imageBucket: "",
       itemsDatabase: "",
+      usersBucket: "",
+      usersDatabase: "",
       historyDatabase: "",
     },
   },

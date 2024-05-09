@@ -12,7 +12,13 @@
           <th scope="col" class="px-6 py-3 w-1/6">Item</th>
           <th scope="col" class="px-6 py-3 w-[12.5%]">Profit</th>
           <th scope="col" class="px-6 py-3 w-1/4">Timestamp</th>
-          <th scope="col" class="px-6 py-3 w-1/3">Cashier</th>
+          <th
+            scope="col"
+            class="px-6 py-3 w-1/3"
+            v-if="config.public.usersDatabase !== ''"
+          >
+            Cashier
+          </th>
         </tr>
       </thead>
       <tbody v-if="tableSkeleton === true" class="animate-pulse">
@@ -304,6 +310,7 @@
           </th>
           <th
             scope="row"
+            v-if="config.public.usersDatabase !== ''"
             class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
           >
             {{ item.cashier }}
