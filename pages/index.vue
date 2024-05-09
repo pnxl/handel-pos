@@ -259,9 +259,17 @@
             </p>
           </div>
           <button
+            v-if="config.public.historyDatabase !== ''"
             class="w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold text-gray-50"
           >
-            Add to database
+            Add to Database
+          </button>
+          <button
+            v-else
+            @click="currentOrder.length = 0"
+            class="w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold text-gray-50"
+          >
+            Finish Order
           </button>
         </div>
       </div>
