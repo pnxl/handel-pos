@@ -6,12 +6,136 @@
         {{ quote }}
       </p>
     </div>
-    <div class="flex flex-row gap-x-2 max-h-[87%]">
+    <div class="flex flex-row gap-x-2 max-h-[87%] h-full">
       <div
-        class="overflow-y-auto p-6 flex flex-col gap-y-6 w-full bg-gray-50 rounded-l-xl"
+        class="overflow-y-auto p-6 flex h-full flex-col gap-y-6 w-full bg-gray-50 rounded-l-xl"
       >
-        <div class="flex flex-col gap-y-4">
-          <h1 class="font-bold text-xl">Smoothies</h1>
+        <div class="flex flex-col h-full gap-y-4">
+          <div
+            v-if="itemsSkeleton === true"
+            class="grid md:grid-cols-2 animate-pulse lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-4"
+          >
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+            <div
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+            >
+              <div class="p-3 flex flex-col gap-y-2">
+                <div class="rounded-xl w-full aspect-square bg-gray-300" />
+                <div class="h-4 bg-gray-300 rounded col-span-2"></div>
+                <div
+                  class="h-2 bg-gray-300 rounded col-span-2 opacity-75 mb-4"
+                ></div>
+                <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+              </div>
+            </div>
+          </div>
           <div
             class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-4"
           >
@@ -157,6 +281,7 @@ const supabase = createClient(
 
 const quote = ref("");
 const itemsList = ref([]);
+const itemsSkeleton = ref(true);
 const orderId = ref(1);
 const currentOrder = reactive([]);
 const totalPrice = reactive([]);
@@ -168,6 +293,8 @@ async function getResults() {
   const items = (await supabase.from(config.public.itemsDatabase).select())
     .data;
   itemsList.value = items;
+
+  itemsSkeleton.value = false;
 }
 
 onMounted(() => {
