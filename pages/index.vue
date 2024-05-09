@@ -179,7 +179,7 @@ onMounted(() => {
 .currentOrder-move,
 .currentOrder-leave-active,
 .currentOrder-enter-active {
-  transition: all 0.25s ease-in-out;
+  transition: all 0.25s;
 }
 
 .currentOrder-enter-from {
