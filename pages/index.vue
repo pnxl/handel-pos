@@ -62,10 +62,14 @@
             />
           </button>
         </div>
-        <div class="flex flex-col gap-y-6 lg:gap-y-4 overflow-y-auto h-full">
-          <div v-for="item in currentOrder" :key="item.id">
+        <TransitionGroup
+          tag="div"
+          name="currentOrder"
+          class="flex -mx-6 flex-col relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
+        >
+          <div v-for="item in currentOrder" :key="item.id" :id="item.id">
             <div
-              class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto"
+              class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto px-6"
             >
               <div class="flex flex-row gap-x-2">
                 <img
@@ -115,7 +119,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </TransitionGroup>
         <div class="z-10 w-full bg-gray-50 flex flex-col gap-y-4">
           <hr class="border-gray-300 rounded-full" />
           <div class="flex flex-row justify-between">
@@ -170,3 +174,33 @@ onMounted(() => {
   getResults();
 });
 </script>
+
+<style>
+.currentOrder-move,
+.currentOrder-leave-active,
+.currentOrder-enter-active {
+  transition: all 0.25s ease-in-out;
+}
+
+.currentOrder-enter-from {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+.currentOrder-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.currentOrder-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.currentOrder-leave-to {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+.currentOrder-leave-active {
+  position: absolute;
+  width: 100%;
+}
+</style>
