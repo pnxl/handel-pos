@@ -1,13 +1,105 @@
 <template>
   <div class="p-8 flex flex-col w-full gap-y-8 h-full">
-    <div class="w-full flex justify-between flex-row gap-x-16">
+    <div class="w-full flex justify-between flex-row gap-x-4">
       <p class="text-lg font-semibold text-left flex flex-col my-auto">
         Cashier
         <span class="mt-1 text-sm font-normal text-gray-500">
           {{ quote }}
         </span>
       </p>
-      <div class="my-auto" v-if="config.public.usersDatabase !== ''"></div>
+      <HeadlessMenu as="div" class="my-auto">
+        <div
+          :class="
+            (!useCookie('cashier').value ? 'animate-pulse-bg' : '') +
+            ' p-1 rounded-2xl'
+          "
+        >
+          <HeadlessMenuButton
+            v-if="config.public.usersDatabase !== ''"
+            class="my-auto flex relative z-10 flex-row group w-56 md:w-72 justify-between gap-x-2 bg-gray-50 py-3 px-6 rounded-xl border border-gray-200 hover:border-indigo-500 hover:bg-indigo-100"
+          >
+            <div
+              class="my-auto flex-row flex gap-x-3 group text-left"
+              v-if="useCookie('cashier').value"
+            >
+              <img
+                :src="useCookie('cashierImage').value"
+                class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
+              />
+              <p
+                class="md:flex flex-row gap-x-1 hidden text-ellipsis line-clamp-1 my-auto"
+              >
+                Hi,
+                <span class="font-semibold text-ellipsis line-clamp-1">{{
+                  useCookie("cashier").value.split(" ").slice(0, 2).join(" ")
+                }}</span>
+              </p>
+              <p class="md:hidden text-gray-500 my-auto">
+                <span class="font-semibold">{{
+                  useCookie("cashier").value.split(" ").slice(0, 2).join(" ")
+                }}</span>
+              </p>
+            </div>
+            <p class="my-auto flex-row flex text-right" v-else>
+              Select a user...
+            </p>
+            <Icon name="mdi:menu-down" class="text-lg my-auto" />
+          </HeadlessMenuButton>
+        </div>
+        <transition
+          enter-active-class="transition duration-[250ms] ease-out"
+          enter-from-class="transform -translate-y-4 opacity-0"
+          enter-to-class="transform translate-y-0 opacity-100"
+          leave-active-class="transition duration-[250ms]"
+          leave-from-class="transform translate-y-0 opacity-100"
+          leave-to-class="transform -translate-y-4 opacity-0"
+        >
+          <HeadlessMenuItems
+            class="absolute right-0 mr-8 mt-2 w-56 md:w-72 rounded-xl bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none"
+          >
+            <div class="px-1 py-1 flex-col gap-y-1 flex">
+              <HeadlessMenuItem v-for="user in usersList" :key="user.id">
+                <button
+                  v-if="useCookie('cashier').value === user.fullName"
+                  class="bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold group text-gray-50 flex gap-x-3 w-full rounded-lg px-5 py-2"
+                  @click="
+                    useCookie('cashier').value = user.fullName;
+                    useCookie(
+                      'cashierImage'
+                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`;
+                  "
+                >
+                  <img
+                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`"
+                    class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
+                  />
+                  <p class="my-auto line-clamp-1 text-ellipsis text-left">
+                    {{ user.fullName }}
+                  </p>
+                </button>
+                <button
+                  v-else
+                  class="hover:bg-indigo-100 group flex gap-x-3 w-full rounded-lg px-5 py-2"
+                  @click="
+                    useCookie('cashier').value = user.fullName;
+                    useCookie(
+                      'cashierImage'
+                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`;
+                  "
+                >
+                  <img
+                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`"
+                    class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
+                  />
+                  <p class="my-auto line-clamp-1 text-ellipsis text-left">
+                    {{ user.fullName }}
+                  </p>
+                </button>
+              </HeadlessMenuItem>
+            </div>
+          </HeadlessMenuItems></transition
+        >
+      </HeadlessMenu>
     </div>
     <div class="flex flex-row gap-x-2 max-h-[87%] h-full">
       <div
@@ -265,7 +357,11 @@
             v-if="config.public.historyDatabase !== ''"
             @click="
               currentOrder.forEach((i) => {
-                add2Db(i.name, i.price, 'a');
+                add2Db(
+                  i.name,
+                  i.price,
+                  useCookie('cashier').value || 'Cashier'
+                );
               });
               currentOrder.length = 0;
             "
@@ -323,8 +419,7 @@ async function getResults() {
   itemsList.value = items;
 
   if (config.public.usersDatabase !== "") {
-    const users = (await supabase.from(config.public.usersDatabase).select())
-      .data;
+    const users = (await supabase.from("cashiers").select()).data;
     usersList.value = users;
   }
 
@@ -337,14 +432,24 @@ async function add2Db(
   ans_cashier: string
 ) {
   if (config.public.historyDatabase !== "") {
-    await supabase
-      .from(config.public.historyDatabase)
-      .insert({
-        item: ans_item,
-        profit: ans_profit,
-        cashier: ans_cashier,
-      })
-      .then((r: any) => console.log(r));
+    if (config.public.usersDatabase !== "") {
+      await supabase
+        .from(config.public.historyDatabase)
+        .insert({
+          item: ans_item,
+          profit: ans_profit,
+          cashier: ans_cashier,
+        })
+        .then((r: any) => console.log(r));
+    } else {
+      await supabase
+        .from(config.public.historyDatabase)
+        .insert({
+          item: ans_item,
+          profit: ans_profit,
+        })
+        .then((r: any) => console.log(r));
+    }
   }
 }
 

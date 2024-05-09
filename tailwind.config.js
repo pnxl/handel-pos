@@ -9,7 +9,21 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "pulse-bg": "pulse-bg 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
+      },
+      keyframes: {
+        "pulse-bg": {
+          "0%, 100%": {
+            "background-color": "rgb(239, 68, 68, 100)",
+          },
+          "50%": {
+            "background-color": "rgb(239, 68, 68, .50)",
+          },
+        },
+      },
+    },
   },
   plugins: [],
 };
