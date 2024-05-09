@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-icon"],
+  modules: ["nuxt-icon", "nuxt-headlessui"],
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
@@ -23,5 +23,8 @@ export default defineNuxtConfig({
       usersDatabase: "",
       historyDatabase: "",
     },
+  },
+  headlessui: {
+    prefix: "Headless",
   },
 });

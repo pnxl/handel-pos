@@ -15,3 +15,7 @@
   scale: 0.95;
 }
 </style>
+
+<script setup>
+provideHeadlessUseId(() => useId());
+</script>
