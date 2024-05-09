@@ -260,6 +260,12 @@
           </div>
           <button
             v-if="config.public.historyDatabase !== ''"
+            @click="
+              currentOrder.forEach((i) => {
+                add2Db(i.name, i.price, 'a');
+              });
+              currentOrder.length = 0;
+            "
             :disabled="currentOrder.length === 0"
             :class="
               currentOrder.length !== 0
@@ -313,6 +319,23 @@ async function getResults() {
   itemsList.value = items;
 
   itemsSkeleton.value = false;
+}
+
+async function add2Db(
+  ans_item: string,
+  ans_profit: number,
+  ans_cashier: string
+) {
+  if (config.public.historyDatabase !== "") {
+    await supabase
+      .from(config.public.historyDatabase)
+      .insert({
+        item: ans_item,
+        profit: ans_profit,
+        cashier: ans_cashier,
+      })
+      .then((r: any) => console.log(r));
+  }
 }
 
 onMounted(() => {
