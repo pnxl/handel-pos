@@ -14,6 +14,208 @@
           <th scope="col" class="px-6 py-3 w-1/4">Price</th>
         </tr>
       </thead>
+      <tbody v-if="tableSkeleton === true" class="animate-pulse">
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-200/50">
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+          >
+            <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+          </th>
+        </tr>
+      </tbody>
       <tbody>
         <tr
           v-for="item in itemsList"
@@ -56,10 +258,12 @@ const supabase = createClient(
 );
 
 const itemsList = ref([]);
+const tableSkeleton = ref(true);
 
 async function getResults() {
   const { data } = await supabase.from(config.public.itemsDatabase).select();
   itemsList.value = data;
+  tableSkeleton.value = false;
 }
 
 onMounted(() => {
