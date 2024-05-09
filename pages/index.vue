@@ -20,7 +20,7 @@
               v-for="item in itemsList"
               :key="item.id"
               @click="
-                currentOrder.push({
+                currentOrder.unshift({
                   id: orderId++,
                   name: item.name,
                   image: item.image,
@@ -65,7 +65,7 @@
         <TransitionGroup
           tag="div"
           name="currentOrder"
-          class="flex -mx-6 flex-col relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
+          class="flex -mx-6 flex-col-reverse relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
         >
           <div v-for="item in currentOrder" :key="item.id" :id="item.id">
             <div
@@ -184,7 +184,7 @@ onMounted(() => {
 
 .currentOrder-enter-from {
   opacity: 0;
-  transform: translateY(-1rem);
+  transform: translateY(1rem);
 }
 .currentOrder-enter-to {
   opacity: 1;
@@ -197,7 +197,7 @@ onMounted(() => {
 }
 .currentOrder-leave-to {
   opacity: 0;
-  transform: translateY(-1rem);
+  transform: translateY(1rem);
 }
 .currentOrder-leave-active {
   position: absolute;
