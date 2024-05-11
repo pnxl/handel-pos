@@ -61,7 +61,7 @@
               <HeadlessMenuItem v-for="user in usersList" :key="user.id">
                 <button
                   v-if="useCookie('cashier').value === user.fullName"
-                  class="bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold group text-gray-50 flex gap-x-3 w-full rounded-lg px-5 py-2"
+                  class="bg-indigo-200/75 group flex gap-x-3 w-full rounded-lg px-5 py-2"
                   @click="
                     useCookie('cashier').value = user.fullName;
                     useCookie(
