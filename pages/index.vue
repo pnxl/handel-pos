@@ -101,7 +101,9 @@
         >
       </HeadlessMenu>
     </div>
-    <div class="flex flex-row gap-x-2 max-h-[87%] h-full">
+    <div
+      class="flex flex-row gap-x-2 max-h-[74%] md:max-h-[82.5%] xl:max-h-[90%] 2xl:max-h-[94%] h-full"
+    >
       <div
         class="overflow-y-auto p-6 border border-gray-200 flex h-full flex-col gap-y-6 w-full bg-gray-50 rounded-l-xl"
       >
@@ -239,12 +241,27 @@
               v-for="item in itemsList"
               :key="item.id"
               @click="
-                currentOrder.unshift({
-                  id: orderId++,
-                  name: item.name,
-                  image: item.image,
-                  price: item.price,
-                })
+                if (item.options.length !== 0) {
+                  modalCurrentId = orderId++;
+                  modalCurrentItem = item.name || 'No Name';
+                  modalCurrentImage =
+                    `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
+                    `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+                  modalCurrentPrice = item.price || 0;
+                  modalCurrentModifications = JSON.parse(
+                    JSON.stringify(item.options)
+                  );
+                  console.log(modalCurrentModifications);
+                  openItemModal();
+                } else {
+                  currentOrder.unshift({
+                    id: orderId++,
+                    name: item.name,
+                    image: `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`,
+                    price: item.price,
+                    options: [],
+                  });
+                }
               "
             >
               <div class="p-3 flex flex-col gap-y-2">
@@ -263,6 +280,226 @@
               </div>
             </button>
           </div>
+          <HeadlessTransitionRoot appear :show="modalIsOpen" as="template">
+            <HeadlessDialog
+              as="div"
+              @close="closeItemModal()"
+              class="relative z-30"
+            >
+              <HeadlessTransitionChild
+                as="template"
+                enter="duration-[250ms] ease-out"
+                enter-from="opacity-0"
+                enter-to="opacity-100"
+                leave="duration-[250ms] ease-in"
+                leave-from="opacity-100"
+                leave-to="opacity-0"
+              >
+                <div class="fixed inset-0 bg-gray-950/50" />
+              </HeadlessTransitionChild>
+              <div
+                class="fixed inset-0 flex flex-col justify-center overflow-y-auto"
+              >
+                <div
+                  class="flex flex-col items-center h-[90%] overflow-y-auto justify-center md:p-4 text-center"
+                >
+                  <HeadlessTransitionChild
+                    as="template"
+                    enter="duration-[250ms] ease-out"
+                    enter-from="scale-90 opacity-0"
+                    enter-to="scale-100 opacity-100"
+                    leave="duration-[250ms] ease-in"
+                    leave-from="scale-100 opacity-100"
+                    leave-to="scale-90 opacity-0"
+                  >
+                    <HeadlessDialogPanel
+                      class="w-full md:max-w-[48rem] lg:max-w-[56rem] xl:max-w-[72rem] 2xl:max-w-[104rem] h-full flex flex-col gap-y-8 transform overflow-hidden md:rounded-2xl border border-gray-200 bg-gray-50 p-6 text-left align-middle shadow-xl transition-all"
+                    >
+                      <div class="flex flex-row gap-x-4">
+                        <img
+                          :src="modalCurrentImage"
+                          class="h-[3.25rem] aspect-square rounded-lg my-auto"
+                        />
+                        <div class="my-auto">
+                          <HeadlessDialogTitle
+                            as="h1"
+                            class="text-xl font-semibold"
+                            >{{ modalCurrentItem }}</HeadlessDialogTitle
+                          >
+                          <p class="mt-1 text-base font-normal text-gray-500">
+                            Choose modifications to apply on the product...
+                          </p>
+                        </div>
+                      </div>
+
+                      <div
+                        class="flex flex-row overflow-y-auto overflow-x-hidden gap-x-6 h-full"
+                      >
+                        <div class="flex flex-col gap-y-8 grow">
+                          <div
+                            v-for="modification in modalCurrentModifications"
+                          >
+                            <p class="text-lg font-medium">
+                              {{ modification.category }}
+                            </p>
+                            <div
+                              class="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-2 gap-y-2 mt-2"
+                            >
+                              <button
+                                v-for="item in modification.items"
+                                @click="
+                                  currentModifications.unshift({
+                                    id: item.name,
+                                    name: item.name,
+                                    price: item.price,
+                                  })
+                                "
+                                class="p-2 rounded-xl flex text-left flex-row justify-between border-2 border-gray-300 hover:border-indigo-400"
+                              >
+                                <p class="my-auto">
+                                  {{ item.name }}
+                                </p>
+                                <p
+                                  class="opacity-50 text-sm my-auto text-right"
+                                >
+                                  {{ config.public.currency
+                                  }}{{
+                                    item.price.toLocaleString(
+                                      config.public.locale
+                                    )
+                                  }}
+                                </p>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="w-1 rounded-full h-full bg-gray-200/50"
+                        ></div>
+                        <div class="flex flex-col w-1/3 justify-end">
+                          <TransitionGroup
+                            tag="div"
+                            name="currentModifications"
+                            class="flex flex-col-reverse relative gap-y-6 lg:gap-y-4 h-full overflow-y-auto"
+                          >
+                            <div
+                              v-for="item in currentModifications"
+                              :key="item.id"
+                              :id="item.id"
+                            >
+                              <div
+                                class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto pr-3"
+                              >
+                                <div class="flex flex-row gap-x-2">
+                                  <div class="my-auto">
+                                    <p class="font-semibold text-ellipsis">
+                                      {{ item.name }}
+                                    </p>
+                                    <p class="text-ellipsis">
+                                      {{ config.public.currency
+                                      }}{{
+                                        item.price.toLocaleString(
+                                          config.public.locale
+                                        )
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                                <button
+                                  class="group lg:block hidden"
+                                  @click="
+                                    currentModifications.splice(
+                                      currentModifications.findIndex(
+                                        (i) => i.id === item.id
+                                      ),
+                                      1
+                                    )
+                                  "
+                                >
+                                  <Icon
+                                    name="mdi:close-circle"
+                                    class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-600 lg:group-hover:text-red-400"
+                                  />
+                                </button>
+                                <button
+                                  class="group lg:hidden bg-red-200 rounded-md mt-2 py-1"
+                                  @click="
+                                    currentModifications.splice(
+                                      currentModifications.findIndex(
+                                        (i) => i.id === item.id
+                                      ),
+                                      1
+                                    )
+                                  "
+                                >
+                                  <div
+                                    class="flex flex-row mx-auto gap-x-1 w-fit"
+                                  >
+                                    <Icon
+                                      name="mdi:close-circle"
+                                      class="text-2xl my-auto text-red-800 group-hover:text-red-400"
+                                    />
+                                    <p class="my-auto text-red-800 text-sm">
+                                      Delete
+                                    </p>
+                                  </div>
+                                </button>
+                              </div>
+                            </div>
+                          </TransitionGroup>
+
+                          <hr class="border-gray-300 rounded-full my-4" />
+                          <div class="flex flex-row justify-between">
+                            <p class="opacity-75 my-auto">
+                              {{ currentModifications.length }} items
+                            </p>
+                            <p class="font-medium text-lg my-auto">
+                              {{ config.public.currency
+                              }}{{
+                                (
+                                  currentModifications.reduce(
+                                    (acc, item) => acc + item.price,
+                                    0
+                                  ) + modalCurrentPrice
+                                ).toLocaleString(config.public.locale)
+                              }}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            class="min-w-full mt-4 p-2 rounded-full bg-indigo-200/75 hover:bg-indigo-100 text-indigo-800 hover:text-indigo-900 font-medium"
+                            @click="
+                              currentOrder.unshift({
+                                id: modalCurrentId,
+                                name: modalCurrentItem,
+                                image: modalCurrentImage,
+                                price: (orderPrice =
+                                  currentModifications.reduce(
+                                    (acc, item) => acc + item.price,
+                                    0
+                                  ) + modalCurrentPrice),
+                                options: JSON.parse(
+                                  JSON.stringify(currentModifications)
+                                ),
+                              });
+                              closeItemModal();
+                            "
+                          >
+                            {{
+                              currentModifications.length !== 0
+                                ? "Add with selected modifications"
+                                : "Add without modifications"
+                            }}
+                          </button>
+                        </div>
+                      </div>
+                    </HeadlessDialogPanel>
+                  </HeadlessTransitionChild>
+                </div>
+              </div>
+            </HeadlessDialog>
+          </HeadlessTransitionRoot>
         </div>
       </div>
       <div
@@ -291,14 +528,16 @@
               class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto px-6"
             >
               <div class="flex flex-row gap-x-2">
-                <img
-                  :src="`${config.public.databaseUrl}/storage/v1/object/public/menu/${item.image}`"
-                  class="rounded-xl object-cover aspect-square w-16 h-16"
-                />
                 <div class="my-auto">
-                  <p class="lg:text-lg font-semibold text-ellipsis">
+                  <p class="text-lg font-semibold text-ellipsis">
                     {{ item.name }}
                   </p>
+                  <div
+                    v-for="options in item.options"
+                    class="opacity-75 text-sm"
+                  >
+                    + {{ options.name }}
+                  </div>
                   <p class="text-ellipsis">
                     {{ config.public.currency
                     }}{{ item.price.toLocaleString(config.public.locale) }}
@@ -306,7 +545,7 @@
                 </div>
               </div>
               <button
-                class="group lg:block hidden"
+                class="group lg:block hidden mt-auto"
                 @click="
                   currentOrder.splice(
                     currentOrder.findIndex((i) => i.id === item.id),
@@ -316,7 +555,7 @@
               >
                 <Icon
                   name="mdi:close-circle"
-                  class="text-2xl mx-auto my-auto text-red-800 group-hover:text-red-600 lg:group-hover:text-red-400"
+                  class="text-2xl mx-auto mb-auto text-red-800 group-hover:text-red-600 lg:group-hover:text-red-400"
                 />
               </button>
               <button
@@ -360,6 +599,7 @@
                 add2Db(
                   i.name,
                   i.price,
+                  i.options || [],
                   useCookie('cashier').value || 'Cashier'
                 );
               });
@@ -368,8 +608,8 @@
             :disabled="currentOrder.length === 0"
             :class="
               currentOrder.length !== 0
-                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold text-gray-50'
-                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-semibold text-gray-50'
+                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
+                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
             "
           >
             Add to Database
@@ -380,8 +620,8 @@
             :disabled="currentOrder.length === 0"
             :class="
               currentOrder.length !== 0
-                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold text-gray-50'
-                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-semibold text-gray-50'
+                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
+                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
             "
           >
             Finish Order
@@ -402,13 +642,43 @@ const supabase = createClient(
   config.public.anonymousApikey
 );
 
+const usersList = ref([]);
 const quote = ref("");
 const itemsList = ref([]);
 const itemsSkeleton = ref(true);
+
 const orderId = ref(1);
+const modificationId = ref(1);
+
+const modalIsOpen = ref(false);
+const modalCurrentId = ref(1);
+const modalCurrentItem = ref("No Name");
+const modalCurrentImage = ref(
+  `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
+);
+const modalCurrentPrice = ref(0);
+const modalCurrentModifications = reactive([]);
+
+const currentModifications = reactive([]);
 const currentOrder = reactive([]);
+const orderPrice = reactive([]);
 const totalPrice = reactive([]);
-const usersList = ref([]);
+
+function closeItemModal() {
+  modalIsOpen.value = false;
+  setTimeout(() => {
+    modalCurrentId.value = 1;
+    modificationId.value = 1;
+    modalCurrentItem.value = "No Name";
+    modalCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+    modalCurrentPrice.value = 0;
+    currentModifications.length = 0;
+  }, 250);
+}
+
+function openItemModal() {
+  modalIsOpen.value = true;
+}
 
 async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
@@ -429,6 +699,7 @@ async function getResults() {
 async function add2Db(
   ans_item: string,
   ans_profit: number,
+  ans_options: string,
   ans_cashier: string
 ) {
   if (config.public.historyDatabase !== "") {
@@ -438,6 +709,7 @@ async function add2Db(
         .insert({
           item: ans_item,
           profit: ans_profit,
+          options: ans_options,
           cashier: ans_cashier,
         })
         .then((r: any) => console.log(r));
@@ -447,6 +719,7 @@ async function add2Db(
         .insert({
           item: ans_item,
           profit: ans_profit,
+          options: ans_options,
         })
         .then((r: any) => console.log(r));
     }
@@ -483,6 +756,34 @@ onMounted(() => {
   transform: translateY(0.125rem);
 }
 .currentOrder-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
+.currentModifications-move,
+.currentModifications-leave-active,
+.currentModifications-enter-active {
+  transition: all 0.25s;
+}
+
+.currentModifications-enter-from {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+.currentModifications-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.currentModifications-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.currentModifications-leave-to {
+  opacity: 0;
+  transform: translateY(0.125rem);
+}
+.currentModifications-leave-active {
   position: absolute;
   width: 100%;
 }

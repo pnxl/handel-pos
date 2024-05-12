@@ -291,9 +291,12 @@
         >
           <th
             scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
+            class="px-6 py-4 flex flex-col font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ item.item }}
+            <span class="text-sm opacity-75" v-for="addon in item.options"
+              >+ {{ JSON.parse(addon).id }}
+            </span>
           </th>
           <th
             scope="row"

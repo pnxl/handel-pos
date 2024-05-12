@@ -9,9 +9,10 @@
       </caption>
       <thead class="text-base font-medium border-b-2 border-gray-300">
         <tr>
-          <th scope="col" class="px-6 py-3 w-1/4">Name</th>
+          <th scope="col" class="px-6 py-3 w-1/6">Name</th>
           <th scope="col" class="px-6 py-3">Description</th>
-          <th scope="col" class="px-6 py-3 w-1/4">Price</th>
+          <th scope="col" class="px-6 py-3">Options</th>
+          <th scope="col" class="px-6 py-3 w-1/6">Price</th>
         </tr>
       </thead>
       <tbody v-if="tableSkeleton === true" class="animate-pulse">
@@ -233,6 +234,23 @@
             class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ item.description }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
+          >
+            <p
+              v-for="option in item.options"
+              class="font-medium my-1 flex flex-col"
+            >
+              {{ option.category }}
+              <span
+                v-for="item in option.items"
+                class="font-normal opacity-75 text-sm"
+              >
+                &bull; {{ item.name }}</span
+              >
+            </p>
           </th>
           <th
             scope="row"
