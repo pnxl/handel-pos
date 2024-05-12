@@ -237,7 +237,7 @@
             class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-4"
           >
             <button
-              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400"
+              class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400 active:bg-indigo-50 duration-[250ms]"
               v-for="item in itemsList"
               :key="item.id"
               @click="
@@ -315,21 +315,29 @@
                     <HeadlessDialogPanel
                       class="w-full md:max-w-[48rem] lg:max-w-[56rem] xl:max-w-[72rem] 2xl:max-w-[104rem] h-full flex flex-col gap-y-8 transform overflow-hidden md:rounded-2xl border border-gray-200 bg-gray-50 p-6 text-left align-middle shadow-xl transition-all"
                     >
-                      <div class="flex flex-row gap-x-4">
-                        <img
-                          :src="modalCurrentImage"
-                          class="h-[3.25rem] aspect-square rounded-lg my-auto"
-                        />
-                        <div class="my-auto">
-                          <HeadlessDialogTitle
-                            as="h1"
-                            class="text-xl font-semibold"
-                            >{{ modalCurrentItem }}</HeadlessDialogTitle
-                          >
-                          <p class="mt-1 text-base font-normal text-gray-500">
-                            Choose modifications to apply on the product...
-                          </p>
+                      <div class="flex flex-row justify-between">
+                        <div class="flex flex-row gap-x-4">
+                          <img
+                            :src="modalCurrentImage"
+                            class="h-[3.25rem] aspect-square rounded-lg my-auto"
+                          />
+                          <div class="my-auto">
+                            <HeadlessDialogTitle
+                              as="h1"
+                              class="text-xl font-semibold"
+                              >{{ modalCurrentItem }}</HeadlessDialogTitle
+                            >
+                            <p class="mt-1 text-base font-normal text-gray-500">
+                              Choose modifications to apply on the product...
+                            </p>
+                          </div>
                         </div>
+                        <button @click="closeItemModal()">
+                          <Icon
+                            name="mdi:close"
+                            class="text-2xl my-auto hover:text-red-500 text-gray-500"
+                          />
+                        </button>
                       </div>
 
                       <div
@@ -354,7 +362,7 @@
                                     price: item.price,
                                   })
                                 "
-                                class="p-2 rounded-xl flex text-left flex-row justify-between border-2 border-gray-300 hover:border-indigo-400"
+                                class="p-2 rounded-xl active:bg-indigo-50 duration-[250ms] flex text-left flex-row justify-between border-2 border-gray-300 hover:border-indigo-400"
                               >
                                 <p class="my-auto">
                                   {{ item.name }}
