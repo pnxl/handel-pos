@@ -260,6 +260,7 @@
                     image: `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`,
                     price: item.price,
                     options: [],
+                    note: '',
                   });
                 }
               "
@@ -360,6 +361,7 @@
                                     id: item.name,
                                     name: item.name,
                                     price: item.price,
+                                    note: '',
                                   })
                                 "
                                 class="p-2 rounded-xl active:bg-indigo-50 duration-[250ms] flex text-left flex-row justify-between border-2 border-gray-300 hover:border-indigo-400"
@@ -479,7 +481,7 @@
                             class="min-w-full mt-4 p-2 rounded-full bg-indigo-200/75 hover:bg-indigo-100 text-indigo-800 hover:text-indigo-900 font-medium"
                             @click="
                               currentOrder.unshift({
-                                id: modalCurrentId,
+                                id: orderId++,
                                 name: modalCurrentItem,
                                 image: modalCurrentImage,
                                 price: (orderPrice =
@@ -490,6 +492,7 @@
                                 options: JSON.parse(
                                   JSON.stringify(currentModifications)
                                 ),
+                                note: '',
                               });
                               closeItemModal();
                             "
@@ -528,6 +531,7 @@
         </div>
         <TransitionGroup
           tag="div"
+          key="currentOrder"
           name="currentOrder"
           class="flex -mx-6 flex-col-reverse relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
         >
@@ -550,41 +554,160 @@
                     {{ config.public.currency
                     }}{{ item.price.toLocaleString(config.public.locale) }}
                   </p>
+                  <div
+                    class="opacity-75 text-sm"
+                    v-if="String(item.note).trim() !== ''"
+                  >
+                    <div
+                      class="opacity-75 text-sm"
+                      v-if="String(item.note).trim() !== 'undefined'"
+                    >
+                      ({{ String(item.note).trim() }})
+                    </div>
+                  </div>
                 </div>
               </div>
-              <button
-                class="group lg:block hidden mt-auto"
-                @click="
-                  currentOrder.splice(
-                    currentOrder.findIndex((i) => i.id === item.id),
-                    1
-                  )
-                "
-              >
-                <Icon
-                  name="mdi:close-circle"
-                  class="text-2xl mx-auto mb-auto text-red-800 group-hover:text-red-600 lg:group-hover:text-red-400"
-                />
-              </button>
-              <button
-                class="group lg:hidden bg-red-200 rounded-md mt-2 py-1"
-                @click="
-                  currentOrder.splice(
-                    currentOrder.findIndex((i) => i.id === item.id),
-                    1
-                  )
-                "
-              >
-                <div class="flex flex-row mx-auto gap-x-1 w-fit">
+              <div class="mt-auto flex flex-row gap-x-2">
+                <button
+                  class="group lg:block hidden mt-auto"
+                  @click="openNoteModal(item.id)"
+                >
+                  <Icon
+                    name="mdi:note-edit"
+                    class="text-2xl mx-auto mb-auto text-gray-500 group-hover:text-gray-400"
+                  />
+                </button>
+                <button
+                  class="group lg:block hidden mt-auto"
+                  @click="
+                    currentOrder.splice(
+                      currentOrder.findIndex((i) => i.id === item.id),
+                      1
+                    )
+                  "
+                >
                   <Icon
                     name="mdi:close-circle"
-                    class="text-2xl my-auto text-red-800 group-hover:text-red-400"
+                    class="text-2xl mx-auto mb-auto text-red-800 group-hover:text-red-400"
                   />
-                  <p class="my-auto text-red-800 text-sm">Delete</p>
-                </div>
-              </button>
+                </button>
+                <button
+                  class="group lg:hidden grow bg-gray-300 hover:bg-gray-200 rounded-md mt-2 py-1"
+                  @click="openNoteModal(item.id)"
+                >
+                  <div class="flex flex-row mx-auto gap-x-1 w-fit">
+                    <Icon
+                      name="mdi:note-edit"
+                      class="text-2xl my-auto text-gray-700 group-hover:text-gray-500"
+                    />
+                    <p class="my-auto text-gray-800 text-sm">Note</p>
+                  </div>
+                </button>
+                <button
+                  class="group lg:hidden grow bg-red-200 hover:bg-red-100 rounded-md mt-2 py-1"
+                  @click="
+                    currentOrder.splice(
+                      currentOrder.findIndex((i) => i.id === item.id),
+                      1
+                    )
+                  "
+                >
+                  <div class="flex flex-row mx-auto gap-x-1 w-fit">
+                    <Icon
+                      name="mdi:close-circle"
+                      class="text-2xl my-auto text-red-800 group-hover:text-red-600"
+                    />
+                    <p class="my-auto text-red-800 text-sm">Delete</p>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
+          <HeadlessTransitionRoot appear :show="noteIsOpen" as="template">
+            <HeadlessDialog
+              as="div"
+              @close="closeNoteModal()"
+              class="relative z-30"
+            >
+              <HeadlessTransitionChild
+                as="template"
+                enter="duration-[250ms] ease-out"
+                enter-from="opacity-0"
+                enter-to="opacity-100"
+                leave="duration-[250ms] ease-in"
+                leave-from="opacity-100"
+                leave-to="opacity-0"
+              >
+                <div class="fixed inset-0 bg-gray-950/50" />
+              </HeadlessTransitionChild>
+              <div
+                class="fixed inset-0 flex flex-col justify-center overflow-y-auto"
+              >
+                <div
+                  class="flex flex-col items-center h-[90%] overflow-y-auto justify-center md:p-4 text-center"
+                >
+                  <HeadlessTransitionChild
+                    as="template"
+                    enter="duration-[250ms] ease-out"
+                    enter-from="scale-90 opacity-0"
+                    enter-to="scale-100 opacity-100"
+                    leave="duration-[250ms] ease-in"
+                    leave-from="scale-100 opacity-100"
+                    leave-to="scale-90 opacity-0"
+                  >
+                    <HeadlessDialogPanel
+                      class="w-full md:max-w-[24rem] lg:max-w-[40rem] xl:max-w-[72rem] 2xl:max-w-[104rem] flex flex-col gap-y-8 transform overflow-hidden md:rounded-2xl border border-gray-200 bg-gray-50 p-6 text-left align-middle shadow-xl transition-all"
+                    >
+                      <div class="flex flex-row justify-between w-full">
+                        <div class="flex flex-row gap-x-4">
+                          <div class="my-auto">
+                            <HeadlessDialogTitle
+                              as="h1"
+                              class="text-xl font-semibold"
+                              >Note</HeadlessDialogTitle
+                            >
+                            <p class="mt-1 text-base font-normal text-gray-500">
+                              Add a note to this product...
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <textarea
+                        rows="5"
+                        cols="33"
+                        v-model="text"
+                        class="bg-gray-50 border-2 p-2 border-gray-200 rounded-xl"
+                      ></textarea>
+                      <div class="flex flex-row justify-end gap-x-2">
+                        <button
+                          @click="
+                            currentOrder[
+                              currentOrder
+                                .map((i) => {
+                                  return i.id;
+                                })
+                                .indexOf(noteCurrentId)
+                            ].note = text;
+                            closeNoteModal();
+                            text = '';
+                          "
+                          class="px-4 py-2 bg-indigo-200/75 hover:bg-indigo-100 rounded-xl text-indigo-800 font-medium hover:text-indigo-900"
+                        >
+                          Apply
+                        </button>
+                        <button
+                          @click="closeNoteModal()"
+                          class="px-4 py-2 bg-red-200/75 hover:bg-red-100 rounded-xl text-red-800 font-medium hover:text-red-900"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </HeadlessDialogPanel>
+                  </HeadlessTransitionChild>
+                </div>
+              </div>
+            </HeadlessDialog>
+          </HeadlessTransitionRoot>
         </TransitionGroup>
         <div class="z-10 w-full bg-gray-50 flex flex-col gap-y-4">
           <hr class="border-gray-300 rounded-full" />
@@ -667,6 +790,14 @@ const modalCurrentImage = ref(
 const modalCurrentPrice = ref(0);
 const modalCurrentModifications = reactive([]);
 
+const noteIsOpen = ref(false);
+const noteCurrentId = ref(1);
+const noteCurrentItem = ref("No Name");
+const noteCurrentImage = ref(
+  `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
+);
+const noteText = ref("");
+
 const currentModifications = reactive([]);
 const currentOrder = reactive([]);
 const orderPrice = reactive([]);
@@ -686,6 +817,21 @@ function closeItemModal() {
 
 function openItemModal() {
   modalIsOpen.value = true;
+}
+
+function closeNoteModal() {
+  noteIsOpen.value = false;
+  setTimeout(() => {
+    noteCurrentId.value = 1;
+    noteCurrentItem.value = "No Name";
+    noteCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+    noteText.value = "";
+  }, 250);
+}
+
+function openNoteModal(id: number) {
+  noteIsOpen.value = true;
+  noteCurrentId.value = id;
 }
 
 async function getResults() {
