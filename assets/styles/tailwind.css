@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply transition-all duration-[250ms];
+  @apply transition-all duration-[250ms] selection:bg-indigo-200/50;
   /* @apply border border-red-500; */
 }
 
