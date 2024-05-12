@@ -1,9 +1,9 @@
 <template>
   <div class="p-8 flex flex-col w-full gap-y-8 h-full">
     <div class="w-full flex justify-between flex-row gap-x-4">
-      <p class="text-lg font-semibold text-left flex flex-col my-auto">
+      <p class="text-xl font-semibold text-left flex flex-col my-auto">
         Cashier
-        <span class="mt-1 text-sm font-normal text-gray-500">
+        <span class="mt-1 text-base font-normal text-gray-500">
           {{ quote }}
         </span>
       </p>

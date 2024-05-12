@@ -1,13 +1,13 @@
 <template>
   <div class="overflow-y-auto h-screen p-8">
-    <table class="text-sm text-left w-full table-fixed">
-      <caption class="text-lg font-semibold text-left mb-8">
+    <table class="text-left w-full table-fixed">
+      <caption class="text-xl font-semibold text-left mb-8">
         Items
-        <p class="mt-1 text-sm font-normal text-gray-500 dark:gray-gray-400">
+        <p class="mt-1 text-base font-normal text-gray-500 dark:gray-gray-400">
           Listing all current available items.
         </p>
       </caption>
-      <thead class="text-sm font-medium border-b-2 border-gray-300">
+      <thead class="text-base font-medium border-b-2 border-gray-300">
         <tr>
           <th scope="col" class="px-6 py-3 w-1/4">Name</th>
           <th scope="col" class="px-6 py-3">Description</th>
