@@ -234,7 +234,7 @@
             </div>
           </div>
           <div
-            class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-4"
+            class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-4 pb-6"
           >
             <button
               class="rounded-xl border-gray-300 text-left border-2 w-40 flex-auto hover:border-indigo-400 active:bg-indigo-50 duration-[250ms]"
