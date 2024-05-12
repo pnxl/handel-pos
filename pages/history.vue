@@ -10,8 +10,8 @@
       <thead class="text-base font-medium border-b-2 border-gray-300">
         <tr>
           <th scope="col" class="px-6 py-3 w-1/6">Item</th>
-          <th scope="col" class="px-6 py-3 w-[15%]">Profit</th>
-          <th scope="col" class="px-6 py-3 w-1/4">Timestamp</th>
+          <th scope="col" class="px-6 py-3 w-1/6">Profit</th>
+          <th scope="col" class="px-6 py-3 w-1/6">Timestamp</th>
           <th
             scope="col"
             class="px-6 py-3 w-1/6"
