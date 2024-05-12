@@ -1,4 +1,5 @@
 {
+  "name": "handel-pos",
   "private": true,
   "scripts": {
     "build": "nuxt build",
