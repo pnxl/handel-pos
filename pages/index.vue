@@ -248,9 +248,7 @@
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = JSON.parse(
-                    JSON.stringify(item.options)
-                  );
+                  modalCurrentModifications = item.options;
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
