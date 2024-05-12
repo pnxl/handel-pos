@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.43.1",
     "nuxt-headlessui": "^1.2.0",
     "pinia": "^2.1.7",
-    "vue": "^3.4.27"
+    "vue": "^3.4.27",
+    "vue-deepunref": "^1.0.1"
   }
 }

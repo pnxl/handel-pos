@@ -248,7 +248,7 @@
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = toRaw(item.options);
+                  modalCurrentModifications = deepUnref(item.options);
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
@@ -763,6 +763,7 @@
 
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
+import { deepUnref } from "vue-deepunref";
 
 const config = useRuntimeConfig();
 
