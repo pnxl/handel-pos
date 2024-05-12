@@ -291,20 +291,20 @@
         >
           <th
             scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ item.item }}
           </th>
           <th
             scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ config.public.currency
             }}{{ item.profit.toLocaleString(config.public.locale) }}
           </th>
           <th
             scope="row"
-            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ new Date(item.timestamp).toLocaleString(config.public.locale) }}
           </th>

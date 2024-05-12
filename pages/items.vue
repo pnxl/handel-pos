@@ -224,19 +224,19 @@
         >
           <th
             scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ item.name }}
           </th>
           <th
             scope="row"
-            class="px-6 w-20 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ item.description }}
           </th>
           <th
             scope="row"
-            class="px-6 py-4 font-normal text-gray-800 text-wrap whitespace-nowrap"
+            class="px-6 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ config.public.currency
             }}{{ item.price.toLocaleString(config.public.locale) }}
