@@ -248,7 +248,7 @@
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = item.options;
+                  modalCurrentModifications = toRaw(item.options);
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
