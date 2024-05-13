@@ -248,7 +248,7 @@
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = deepUnref(item.options);
+                  modalCurrentModifications = toRaw(item.options);
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
@@ -344,9 +344,7 @@
                       >
                         <div class="flex flex-col gap-y-8 grow">
                           <div
-                            v-for="modification in deepUnref(
-                              modalCurrentModifications
-                            )"
+                            v-for="modification in modalCurrentModifications"
                           >
                             <p class="text-lg font-medium">
                               {{ modification.category }}
