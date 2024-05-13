@@ -345,6 +345,8 @@
                         <div class="flex flex-col gap-y-8 grow">
                           <div
                             v-for="modification in modalCurrentModifications"
+                            :key="modification.category"
+                            :id="modification.category"
                           >
                             <p class="text-lg font-medium">
                               {{ modification.category }}
@@ -354,6 +356,8 @@
                             >
                               <button
                                 v-for="item in modification.items"
+                                :key="item.name"
+                                :id="item.name"
                                 @click="
                                   currentModifications.unshift({
                                     id: item.name,
