@@ -55,13 +55,13 @@
           leave-to-class="transform -translate-y-4 opacity-0"
         >
           <HeadlessMenuItems
-            class="absolute right-0 mr-8 mt-2 w-56 md:w-72 rounded-xl bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none"
+            class="absolute right-0 mr-8 z-50 mt-2 w-56 md:w-72 rounded-xl bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none"
           >
             <div class="px-1 py-1 flex-col gap-y-1 flex">
               <HeadlessMenuItem v-for="user in usersList" :key="user.id">
                 <button
                   v-if="useCookie('cashier').value === user.fullName"
-                  class="bg-indigo-200/75 group flex gap-x-3 w-full rounded-lg px-5 py-2"
+                  class="bg-indigo-200/75 active:bg-indigo-200/75 group flex gap-x-3 w-full rounded-lg px-5 py-2"
                   @click="
                     useCookie('cashier').value = user.fullName;
                     useCookie(
@@ -79,7 +79,7 @@
                 </button>
                 <button
                   v-else
-                  class="hover:bg-indigo-100 group flex gap-x-3 w-full rounded-lg px-5 py-2"
+                  class="hover:bg-indigo-100 active:bg-indigo-200 group flex gap-x-3 w-full rounded-lg px-5 py-2"
                   @click="
                     useCookie('cashier').value = user.fullName;
                     useCookie(
