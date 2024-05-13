@@ -791,7 +791,7 @@ const modalCurrentImage = ref(
   `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
 );
 const modalCurrentPrice = ref(0);
-const modalCurrentModifications = reactive([]);
+const modalCurrentModifications = ref([]);
 
 const noteIsOpen = ref(false);
 const noteCurrentId = ref(1);
