@@ -263,13 +263,13 @@
                 }
               "
             >
-              <div class="p-3 flex flex-col gap-y-2">
+              <div class="p-3 flex flex-col gap-y-2 h-full">
                 <img
                   :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`"
                   class="rounded-xl w-full object-cover aspect-square"
                 />
                 <p class="text-lg font-semibold">{{ item.name }}</p>
-                <p class="opacity-75 mb-4">
+                <p class="opacity-75 mb-4 text-sm">
                   {{ item.description }}
                 </p>
                 <p class="">
