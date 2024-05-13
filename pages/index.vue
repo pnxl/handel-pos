@@ -344,7 +344,9 @@
                       >
                         <div class="flex flex-col gap-y-8 grow">
                           <div
-                            v-for="modification in modalCurrentModifications"
+                            v-for="modification in deepUnref(
+                              modalCurrentModifications
+                            )"
                           >
                             <p class="text-lg font-medium">
                               {{ modification.category }}
