@@ -9,6 +9,18 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
+    fontFamily: {
+      sans: [
+        "Inter Variable",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji",
+      ],
+    },
     extend: {
       animation: {
         "pulse-bg": "pulse-bg 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
