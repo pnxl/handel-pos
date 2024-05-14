@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-icon", "nuxt-headlessui", "@pinia/nuxt"],
+  modules: ["nuxt-icon", "nuxt-headlessui"],
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },

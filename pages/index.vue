@@ -769,7 +769,6 @@
 
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
-import { deepUnref } from "vue-deepunref";
 
 const config = useRuntimeConfig();
 
