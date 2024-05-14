@@ -1,6 +1,16 @@
 # Handel
 
-This is Handel - a simple, configurable point-of-sale app; for small temporary shops/sales.
+This is Handel - a web-based, simple, configurable point-of-sale app. It's aimed towards people running small, temporary businesses - such as garage sales and pop-up shops.
+
+### It makes running your shop effortless, with features such as...
+- **Calculating item prices on the fly**, and gives you a live preview of the current order's price 💸 
+- **Item modifier management**, so you can add modifiers to an item, such as it's sauces, flavour, and size 🤖
+- **Dead simple order logging**, to keep track of every item you've ever sold; making it easy to see who sold what, how much you earned, and when it was sold 📜
+
+### Furthermore, Handel is based around core fundamentals that matter...
+- Firstly, it's **So. Damn. Simple.** it's designed with ease-of-use in mind, so prioritises a clear and straightforward design. This minimises the learning curve and helps you focus on selling items 🤑
+- For all the nerds, it's **built on rock solid foundations**, taking advantage of the latest technologies in order to stay performant and fast ⚡️ 
+- Lastly, it's **infinitely customisable**. Because of its open source nature, anyone is free to fork it and adjust it to their own needs 😄
 
 ### What applications can it be used for?
 
@@ -106,6 +116,13 @@ Create a new column in your users table and fill in each row accordingly.
 
 #### Adding images to items
 Upload an image of your item to your users storage bucket, taking note of the name. Go back to the table editor, and fill in the image row with the file name of the image you just uploaded.
+
+### Does that sound good to you?
+If it does - you can learn more about it at [handel.pnxl.dev](https://handel.pnxl.dev/).
+
+For demos, check out [handel-demo.pages.dev](https://handel-demo.pages.dev).
+
+For an in-person demo and to get it for your business, feel free to contact me here or through email at [jason@pnxl.dev](mailto:jason@pnxl.dev); I'd love to show you what my product can do for your business 😉
 
 ## Acknowledgements and Credits
 
