@@ -240,10 +240,10 @@
             class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             <p
-              v-for="option in item.options"
+              v-for="option in item.options as MenuOption[]"
               class="font-medium my-1 flex flex-col"
             >
-              {{ option.category }}
+              {{ option?.category }}
               <span
                 v-for="item in option.items"
                 class="font-normal opacity-75 text-sm"
@@ -257,7 +257,7 @@
             class="px-6 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ config.public.currency
-            }}{{ item.price.toLocaleString(config.public.locale) }}
+            }}{{ item?.price?.toLocaleString(config.public.locale) }}
           </th>
         </tr>
       </tbody>
@@ -267,19 +267,20 @@
 
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
+import type { Database, MenuOption, Tables } from "~/types/supabase";
 
 const config = useRuntimeConfig();
 
-const supabase = createClient(
+const supabase = createClient<Database>(
   config.public.databaseUrl,
   config.public.anonymousApikey
 );
 
-const itemsList = ref([]);
+const itemsList: Ref<Tables<'menu'>[] | [] | null> = ref([]);
 const tableSkeleton = ref(true);
 
 async function getResults() {
-  const { data } = await supabase.from(config.public.itemsDatabase).select();
+  const { data } = await supabase.from(tableNames.items).select();
   itemsList.value = data;
   tableSkeleton.value = false;
 }
