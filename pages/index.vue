@@ -847,7 +847,7 @@ async function getResults() {
   itemsList.value = items;
 
   if (config.public.usersDatabase !== "") {
-    const users = (await supabase.from("cashiers").select()).data;
+    const users = (await supabase.from(config.public.usersDatabase).select()).data;
     usersList.value = users;
   }
 
