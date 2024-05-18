@@ -87,14 +87,14 @@
           class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full"
         >
           <div
-            class="rounded-xl h-fit border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 hover:border-indigo-400 group"
+            class="rounded-xl border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 hover:border-indigo-400 group"
             v-for="item in unfinishedList"
             :key="item.id"
           >
             <div class="flex flex-col h-full justify-between gap-y-3">
               <div class="flex flex-col gap-y-1">
                 <div class="flex flex-row justify-between">
-                  <p class="font-medium">{{ item.assignment }}</p>
+                  <p class="font-medium">{{ item.assignment || "No Name" }}</p>
                 </div>
                 <p class="text-lg font-semibold">{{ item.item }}</p>
                 <p class="opacity-75 text-sm" v-for="addon in item.options">
