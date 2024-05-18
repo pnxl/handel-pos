@@ -51,6 +51,38 @@
             Cashier
           </p>
         </nuxt-link>
+
+        <nuxt-link
+          to="/orders"
+          class="flex flex-col w-full group"
+          v-if="config.public.historyDatabase !== ''"
+        >
+          <div
+            :class="
+              (route.path === '/orders' ? 'bg-indigo-300' : '') +
+              ' rounded-full bg-opacity-50 px-5 py-1 group group-hover:bg-indigo-200 group-hover:bg-opacity-50'
+            "
+          >
+            <Icon
+              name="mdi:pot-mix"
+              class="text-2xl text-indigo-900 group-hover:scale-110 group-hover:text-indigo-800"
+              v-if="route.path === '/orders'"
+            />
+            <Icon
+              name="mdi:pot-mix-outline"
+              class="text-2xl text-gray-800 group-hover:scale-110 group-hover:text-indigo-700"
+              v-else
+            />
+          </div>
+          <p
+            :class="
+              (route.path === '/orders' ? 'text-indigo-900' : 'text-gray-700') +
+              ' text-center font-medium'
+            "
+          >
+            Orders
+          </p>
+        </nuxt-link>
         <nuxt-link to="/items" class="flex flex-col w-full group">
           <div
             :class="
