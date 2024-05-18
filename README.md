@@ -80,8 +80,7 @@ For columns in the table, you'll need the following:
 
   - id (int8, leave default)
   - timestamp (timestamptz, leave default)
-  - assignment (text, disallow nullable)
-  - cashier (text, default value: `NO Name`, default value: `Cashier`)
+  - assignment (text, default value: `No Name`, disallow nullable)
   - item (text, disallow nullable)
   - options (text, array, default value: `[]`)
   - notes (text, array, default value: ``)
