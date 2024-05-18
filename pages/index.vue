@@ -31,12 +31,18 @@
               >
                 Hi,
                 <span class="font-semibold text-ellipsis line-clamp-1">{{
-                  (useCookie("cashier").value || "Default Cashier").split(" ").slice(0, 2).join(" ")
+                  (useCookie("cashier").value || "Default Cashier")
+                    .split(" ")
+                    .slice(0, 2)
+                    .join(" ")
                 }}</span>
               </p>
               <p class="md:hidden text-gray-500 my-auto">
                 <span class="font-semibold">{{
-                  (useCookie("cashier").value || "Default Cashier").split(" ").slice(0, 2).join(" ")
+                  (useCookie("cashier").value || "Default Cashier")
+                    .split(" ")
+                    .slice(0, 2)
+                    .join(" ")
                 }}</span>
               </p>
             </div>
@@ -248,7 +254,9 @@
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = toRaw(item.options) as MenuOption[];
+                  modalCurrentModifications = toRaw(
+                    item.options
+                  ) as MenuOption[];
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
@@ -540,7 +548,11 @@
           name="currentOrder"
           class="flex -mx-6 flex-col-reverse relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
         >
-          <div v-for="item in currentOrder" :key="item.id" :id="item.id.toString()">
+          <div
+            v-for="item in currentOrder"
+            :key="item.id"
+            :id="item.id.toString()"
+          >
             <div
               class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto px-6"
             >
@@ -780,11 +792,12 @@ const supabase = createClient<Database>(
   config.public.anonymousApikey
 );
 
-const defaultQuote = 'Don\'t be pushed around by the fears in your mind. Be led by the dreams in your heart.';
+const defaultQuote =
+  "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.";
 
-const usersList: Ref<Array<Tables<'cashiers'>> | null>  = ref(null);
+const usersList: Ref<Array<Tables<"cashiers">> | null> = ref(null);
 const quote = ref("");
-const itemsList: Ref<Array<Tables<'menu'>> | null> = ref(null);
+const itemsList: Ref<Array<Tables<"menu">> | null> = ref(null);
 const itemsSkeleton = ref(true);
 
 const orderId = ref(1);
@@ -808,7 +821,7 @@ const noteCurrentImage = ref(
 const noteText = ref("");
 
 const currentModifications: MenuOption["items"] | [] = reactive([]);
-const currentOrder: Array<Tables<'menu'>> = reactive([]);
+const currentOrder: Array<Tables<"menu">> = reactive([]);
 const orderPrice = ref(0);
 const totalPrice = ref(0);
 
@@ -845,10 +858,11 @@ function openNoteModal(id: number) {
 
 async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
-  quote.value = quotes ? quotes[Math.floor(Math.random() * quotes.length)].text : defaultQuote;
+  quote.value = quotes
+    ? quotes[Math.floor(Math.random() * quotes.length)].text
+    : defaultQuote;
 
-  const items = (await supabase.from(tableNames.items).select())
-    .data;
+  const items = (await supabase.from(tableNames.items).select()).data;
   itemsList.value = items;
 
   if (config.public.usersDatabase !== "") {
@@ -867,6 +881,7 @@ async function add2Db(
 ) {
   if (config.public.historyDatabase !== "") {
     if (config.public.usersDatabase !== "") {
+      //@ts-ignore
       await supabase
         .from(tableNames.history)
         .insert({
@@ -877,6 +892,7 @@ async function add2Db(
         })
         .then((r: any) => console.log(r));
     } else {
+      //@ts-ignore
       await supabase
         .from(tableNames.history)
         .insert({
