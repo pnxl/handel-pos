@@ -33,7 +33,7 @@
                 new Date(item.timestamp).toLocaleString(config.public.locale)
               }}
             </p>
-            <div class="flex flex-row gap-x-1">
+            <div class="flex flex-row gap-x-2">
               <button
                 class="w-full p-2 bg-lime-100 rounded-lg border border-lime-200 hover:bg-lime-200"
                 @click="finishRow(item.id)"
