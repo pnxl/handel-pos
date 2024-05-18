@@ -18,10 +18,10 @@
           tag="div"
           key="itemsList"
           name="itemsList"
-          class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full"
+          class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full overflow-y-auto"
         >
           <div
-            class="rounded-xl h-fit border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 hover:border-indigo-400 group"
+            class="rounded-xl h-full border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 hover:border-indigo-400 group"
             v-for="item in finishedList"
             :key="item.id"
           >
@@ -84,10 +84,10 @@
           tag="div"
           key="itemsList"
           name="itemsList"
-          class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full"
+          class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full overflow-y-auto"
         >
           <div
-            class="rounded-xl border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 hover:border-indigo-400 group"
+            class="rounded-xl border-gray-300 text-left border-2 p-3 flex flex-col gap-y-3 h-full hover:border-indigo-400 group"
             v-for="item in unfinishedList"
             :key="item.id"
           >
