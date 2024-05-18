@@ -1,10 +1,10 @@
 export const tableNames = {
-  items: 'menu',
-  users: 'cashiers',
-  history: 'purchases',
+  items: "menu",
+  users: "cashiers",
+  history: "purchases",
 } as const;
 
 export const bucketNames = {
-    image: 'menu',
-    users: 'cashiers'
+  items: "menu",
+  users: "cashiers",
 } as const;
