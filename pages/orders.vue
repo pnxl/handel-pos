@@ -7,6 +7,22 @@
           Viewing all current orders.
         </span>
       </p>
+      <div class="flex flex-row gap-x-2">
+        <button
+          @click="openQueueDisplay()"
+          class="rounded-xl bg-gray-50 border flex flex-row gap-x-2 border-gray-200 hover:bg-indigo-100 hover:border-indigo-300 hover:text-indigo-700 py-3 px-6 h-fit my-auto"
+        >
+          <p class="my-auto">Open Queue Display</p>
+          <Icon name="mdi:open-in-new" class="text-lg my-auto" />
+        </button>
+        <button
+          @click="openKitchenDisplay()"
+          class="rounded-xl bg-gray-50 border flex flex-row gap-x-2 border-gray-200 hover:bg-indigo-100 hover:border-indigo-300 hover:text-indigo-700 py-3 px-6 h-fit my-auto"
+        >
+          <p class="my-auto">Open Kitchen Display</p>
+          <Icon name="mdi:open-in-new" class="text-lg my-auto" />
+        </button>
+      </div>
     </div>
     <div
       class="max-h-[69%] md:max-h-[77.5%] lg:max-h-[85%] 2xl:max-h-[89%] flex flex-row gap-x-8"
@@ -178,6 +194,26 @@ async function finishRow(id: number) {
     .then((r: any) => console.log(r));
 
   getResults();
+}
+
+function openKitchenDisplay() {
+  if (process.client) {
+    window.open(
+      "/kitchen",
+      "Handel Kitchen Display",
+      "status=no,location=no,toolbar=no,menubar=no,width=0,height=0"
+    );
+  }
+}
+
+function openQueueDisplay() {
+  if (process.client) {
+    window.open(
+      "/queue",
+      "Handel Kitchen Display",
+      "status=no,location=no,toolbar=no,menubar=no,width=0,height=0"
+    );
+  }
 }
 
 //@ts-ignore
