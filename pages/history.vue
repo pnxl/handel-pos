@@ -303,7 +303,7 @@
             class="px-6 w-20 py-4 font-normal text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ config.public.currency
-            }}{{ item?.profit?.toLocaleString(config.public.locale) }}
+            }}{{ item?.revenue?.toLocaleString(config.public.locale) }}
           </th>
           <th
             scope="row"
@@ -330,7 +330,7 @@ import type { Database, Tables } from "~/types/supabase";
 
 const config = useRuntimeConfig();
 
-const historyList: Ref<Tables<'purchases'>[] | [] | null> = ref([]);
+const historyList: Ref<Tables<"purchases">[] | [] | null> = ref([]);
 const tableSkeleton = ref(true);
 
 if (config.public.historyDatabase !== "" && tableNames.history) {
@@ -340,9 +340,7 @@ if (config.public.historyDatabase !== "" && tableNames.history) {
   );
 
   async function getResults() {
-    const { data } = await supabase
-      .from(tableNames.history)
-      .select();
+    const { data } = await supabase.from(tableNames.history).select();
     historyList.value = data;
     tableSkeleton.value = false;
   }
