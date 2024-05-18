@@ -81,6 +81,7 @@ export type Database = {
           options: string[] | null;
           revenue: number | null;
           timestamp: string;
+          notes: string | null;
         };
         Insert: {
           cashier?: string | null;
@@ -90,6 +91,7 @@ export type Database = {
           options?: string[] | null;
           revenue?: number | null;
           timestamp?: string;
+          notes: string | null;
         };
         Update: {
           cashier?: string | null;
@@ -99,6 +101,7 @@ export type Database = {
           options?: string[] | null;
           revenue?: number | null;
           timestamp?: string;
+          notes: string | null;
         };
         Relationships: [];
       };
