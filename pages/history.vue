@@ -300,7 +300,7 @@
 
             <span
               class="opacity-75 text-sm"
-              v-if="String(item.notes).trim() !== ''"
+              v-if="String(item.notes).trim().replace('null', '') !== ''"
             >
               <div v-if="String(item.notes).trim() !== 'undefined'">
                 ({{ String(item.notes).trim() }})
