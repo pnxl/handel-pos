@@ -575,7 +575,7 @@
                     v-if="String(item.note).trim() !== ''"
                   >
                     <div
-                      class="opacity-75 text-sm"
+                      class="text-sm"
                       v-if="String(item.note).trim() !== 'undefined'"
                     >
                       ({{ String(item.note).trim() }})
