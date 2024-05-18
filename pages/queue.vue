@@ -7,8 +7,8 @@
         </p>
         <TransitionGroup
           tag="div"
-          key="finishedList"
-          name="finishedList"
+          key="itemsList"
+          name="itemsList"
           class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5"
         >
           <div
@@ -50,8 +50,8 @@
         </p>
         <TransitionGroup
           tag="div"
-          key="unfinishedList"
-          name="unfinishedList"
+          key="itemsList"
+          name="itemsList"
           class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5"
         >
           <div
