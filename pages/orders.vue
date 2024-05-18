@@ -9,7 +9,7 @@
       </p>
     </div>
     <div
-      class="max-h-[69%] md:max-h-[70.5%] xl:max-h-[85%] 2xl:max-h-[89%] flex flex-row gap-x-8"
+      class="max-h-[69%] md:max-h-[77.5%] lg:max-h-[85%] 2xl:max-h-[89%] flex flex-row gap-x-8"
     >
       <div class="flex flex-col gap-y-4 w-1/2 h-full">
         <p class="font-medium text-lg flex flex-col my-auto">
@@ -31,15 +31,6 @@
               <div class="flex flex-col gap-y-1">
                 <div class="flex flex-row justify-between">
                   <p class="font-medium">{{ item.assignment }}</p>
-                  <button
-                    class="rounded-lg flex flex-row justify-center gap-x-1"
-                    @click="deleteRow(item.id)"
-                  >
-                    <Icon
-                      name="mdi:bin"
-                      class="my-auto text-xl hover:text-red-500 text-red-900"
-                    />
-                  </button>
                 </div>
                 <p class="text-lg font-semibold">{{ item.item }}</p>
                 <p class="opacity-75 text-sm" v-for="addon in item.options">
@@ -62,7 +53,7 @@
                 </p>
               </div>
             </div>
-            <div class="flex flex-row gap-x-2">
+            <div class="flex flex-col gap-y-2">
               <button
                 class="w-full p-2 bg-indigo-100 rounded-lg border flex flex-row justify-center gap-x-1 border-indigo-200 hover:bg-indigo-200"
                 @click="deleteRow(item.id)"
@@ -72,6 +63,13 @@
                   class="my-auto text-xl text-indigo-800"
                 />
                 <p class="my-auto text-indigo-900">Picked up</p>
+              </button>
+              <button
+                class="w-full p-2 bg-red-100 rounded-lg border flex flex-row justify-center gap-x-1 border-red-200 hover:bg-red-200"
+                @click="deleteRow(item.id)"
+              >
+                <Icon name="mdi:bin" class="my-auto text-xl text-red-800" />
+                <p class="my-auto text-red-900">Delete order</p>
               </button>
             </div>
           </div>
