@@ -369,9 +369,9 @@
                                 :key="item.name"
                                 :id="item.name"
                                 @click="
-                                  //@ts-ignore
+                                  //@ts-expect-error
                                   currentModifications.unshift({
-                                    id: item.name,
+                                    id: modificationId++,
                                     name: item.name,
                                     price: item.price,
                                     note: '',
@@ -409,7 +409,7 @@
                             <div
                               v-for="item in currentModifications"
                               :key="item.id"
-                              :id="item.id"
+                              :id="String(item.id)"
                             >
                               <div
                                 class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto pr-3"
@@ -875,7 +875,7 @@ async function getResults() {
 
 async function add2Db(
   ans_item: string,
-  ans_profit: number,
+  ans_revenue: number,
   ans_options: Json[],
   ans_cashier: string
 ) {
@@ -886,7 +886,7 @@ async function add2Db(
         .from(tableNames.history)
         .insert({
           item: ans_item,
-          profit: ans_profit,
+          revenue: ans_revenue,
           options: ans_options,
           cashier: ans_cashier,
         })
@@ -897,7 +897,7 @@ async function add2Db(
         .from(tableNames.history)
         .insert({
           item: ans_item,
-          profit: ans_profit,
+          revenue: ans_revenue,
           options: ans_options,
         })
         .then((r: any) => console.log(r));

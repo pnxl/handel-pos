@@ -79,7 +79,7 @@ export type Database = {
           id: number;
           item: string | null;
           options: string[] | null;
-          profit: number | null;
+          revenue: number | null;
           timestamp: string;
         };
         Insert: {
@@ -88,7 +88,7 @@ export type Database = {
           id?: number;
           item?: string | null;
           options?: string[] | null;
-          profit?: number | null;
+          revenue?: number | null;
           timestamp?: string;
         };
         Update: {
@@ -97,7 +97,7 @@ export type Database = {
           id?: number;
           item?: string | null;
           options?: string[] | null;
-          profit?: number | null;
+          revenue?: number | null;
           timestamp?: string;
         };
         Relationships: [];
