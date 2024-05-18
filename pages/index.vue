@@ -23,7 +23,7 @@
               v-if="useCookie('cashier').value"
             >
               <img
-                :src="useCookie('cashierImage').value"
+                :src="useCookie('cashierImage').value || undefined"
                 class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
               />
               <p
@@ -31,12 +31,12 @@
               >
                 Hi,
                 <span class="font-semibold text-ellipsis line-clamp-1">{{
-                  useCookie("cashier").value.split(" ").slice(0, 2).join(" ")
+                  (useCookie("cashier").value || "Default Cashier").split(" ").slice(0, 2).join(" ")
                 }}</span>
               </p>
               <p class="md:hidden text-gray-500 my-auto">
                 <span class="font-semibold">{{
-                  useCookie("cashier").value.split(" ").slice(0, 2).join(" ")
+                  (useCookie("cashier").value || "Default Cashier").split(" ").slice(0, 2).join(" ")
                 }}</span>
               </p>
             </div>
@@ -241,14 +241,14 @@
               v-for="item in itemsList"
               :key="item.id"
               @click="
-                if (item.options.length !== 0) {
+                if (item.options && item.options.length !== 0) {
                   modalCurrentId = orderId++;
                   modalCurrentItem = item.name || 'No Name';
                   modalCurrentImage =
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
                     `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
-                  modalCurrentModifications = toRaw(item.options);
+                  modalCurrentModifications = toRaw(item.options) as MenuOption[];
                   console.log(modalCurrentModifications);
                   openItemModal();
                 } else {
@@ -276,7 +276,7 @@
                 </div>
                 <p class="">
                   {{ config.public.currency
-                  }}{{ item.price.toLocaleString(config.public.locale) }}
+                  }}{{ item?.price?.toLocaleString(config.public.locale) }}
                 </p>
               </div>
             </button>
@@ -361,6 +361,7 @@
                                 :key="item.name"
                                 :id="item.name"
                                 @click="
+                                  //@ts-ignore
                                   currentModifications.unshift({
                                     id: item.name,
                                     name: item.name,
@@ -490,7 +491,7 @@
                                 image: modalCurrentImage,
                                 price: (orderPrice =
                                   currentModifications.reduce(
-                                    (acc, item) => acc + item.price,
+                                    (acc, item) => acc + (item.price || 0),
                                     0
                                   ) + modalCurrentPrice),
                                 options: JSON.parse(
@@ -539,7 +540,7 @@
           name="currentOrder"
           class="flex -mx-6 flex-col-reverse relative gap-y-6 lg:gap-y-4 overflow-y-auto h-full"
         >
-          <div v-for="item in currentOrder" :key="item.id" :id="item.id">
+          <div v-for="item in currentOrder" :key="item.id" :id="item.id.toString()">
             <div
               class="flex lg:flex-row flex-col justify-between gap-x-4 my-auto px-6"
             >
@@ -549,14 +550,14 @@
                     {{ item.name }}
                   </p>
                   <div
-                    v-for="options in item.options"
+                    v-for="options in item.options as MenuOption['items']"
                     class="opacity-75 text-sm"
                   >
-                    + {{ options.name }}
+                    + {{ options?.name }}
                   </div>
                   <p class="text-ellipsis">
                     {{ config.public.currency
-                    }}{{ item.price.toLocaleString(config.public.locale) }}
+                    }}{{ item?.price?.toLocaleString(config.public.locale) }}
                   </p>
                   <div
                     class="opacity-75 text-sm"
@@ -679,7 +680,7 @@
                       <textarea
                         rows="5"
                         cols="33"
-                        v-model="text"
+                        v-model="noteText"
                         class="bg-gray-50 border-2 p-2 border-gray-200 rounded-xl"
                       ></textarea>
                       <div class="flex flex-row justify-end gap-x-2">
@@ -691,9 +692,9 @@
                                   return i.id;
                                 })
                                 .indexOf(noteCurrentId)
-                            ].note = text;
+                            ].note = noteText;
                             closeNoteModal();
-                            text = '';
+                            noteText = '';
                           "
                           class="px-4 py-2 bg-indigo-200/75 hover:bg-indigo-100 rounded-xl text-indigo-800 font-medium hover:text-indigo-900"
                         >
@@ -721,7 +722,7 @@
               {{ config.public.currency
               }}{{
                 (totalPrice = currentOrder.reduce(
-                  (acc, item) => acc + item.price,
+                  (acc, item) => acc + (item.price || 0),
                   0
                 )).toLocaleString(config.public.locale)
               }}
@@ -733,7 +734,7 @@
               currentOrder.forEach((i) => {
                 add2Db(
                   i.name,
-                  i.price,
+                  i.price || 0,
                   i.options || [],
                   useCookie('cashier').value || 'Cashier'
                 );
@@ -769,17 +770,21 @@
 
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
+import type { Database, Json, MenuOption, Tables } from "~/types/supabase";
+import { tableNames } from "~/utils/databaseNames";
 
 const config = useRuntimeConfig();
 
-const supabase = createClient(
+const supabase = createClient<Database>(
   config.public.databaseUrl,
   config.public.anonymousApikey
 );
 
-const usersList = ref([]);
+const defaultQuote = 'Don\'t be pushed around by the fears in your mind. Be led by the dreams in your heart.';
+
+const usersList: Ref<Array<Tables<'cashiers'>> | null>  = ref(null);
 const quote = ref("");
-const itemsList = ref([]);
+const itemsList: Ref<Array<Tables<'menu'>> | null> = ref(null);
 const itemsSkeleton = ref(true);
 
 const orderId = ref(1);
@@ -792,7 +797,7 @@ const modalCurrentImage = ref(
   `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
 );
 const modalCurrentPrice = ref(0);
-const modalCurrentModifications = ref([]);
+const modalCurrentModifications: Ref<MenuOption[] | []> = ref([]);
 
 const noteIsOpen = ref(false);
 const noteCurrentId = ref(1);
@@ -802,10 +807,10 @@ const noteCurrentImage = ref(
 );
 const noteText = ref("");
 
-const currentModifications = reactive([]);
-const currentOrder = reactive([]);
-const orderPrice = reactive([]);
-const totalPrice = reactive([]);
+const currentModifications: MenuOption["items"] | [] = reactive([]);
+const currentOrder: Array<Tables<'menu'>> = reactive([]);
+const orderPrice = ref(0);
+const totalPrice = ref(0);
 
 function closeItemModal() {
   modalIsOpen.value = false;
@@ -840,14 +845,14 @@ function openNoteModal(id: number) {
 
 async function getResults() {
   const quotes = (await supabase.from("quotes").select()).data;
-  quote.value = quotes[Math.floor(Math.random() * quotes.length)].text;
+  quote.value = quotes ? quotes[Math.floor(Math.random() * quotes.length)].text : defaultQuote;
 
-  const items = (await supabase.from(config.public.itemsDatabase).select())
+  const items = (await supabase.from(tableNames.items).select())
     .data;
   itemsList.value = items;
 
   if (config.public.usersDatabase !== "") {
-    const users = (await supabase.from(config.public.usersDatabase).select()).data;
+    const users = (await supabase.from(tableNames.users).select()).data;
     usersList.value = users;
   }
 
@@ -857,13 +862,13 @@ async function getResults() {
 async function add2Db(
   ans_item: string,
   ans_profit: number,
-  ans_options: string,
+  ans_options: Json[],
   ans_cashier: string
 ) {
   if (config.public.historyDatabase !== "") {
     if (config.public.usersDatabase !== "") {
       await supabase
-        .from(config.public.historyDatabase)
+        .from(tableNames.history)
         .insert({
           item: ans_item,
           profit: ans_profit,
@@ -873,7 +878,7 @@ async function add2Db(
         .then((r: any) => console.log(r));
     } else {
       await supabase
-        .from(config.public.historyDatabase)
+        .from(tableNames.history)
         .insert({
           item: ans_item,
           profit: ans_profit,
