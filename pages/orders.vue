@@ -166,6 +166,8 @@ async function deleteRow(id: number) {
     .delete()
     .eq("id", id)
     .then((r: any) => console.log(r));
+
+  getResults();
 }
 
 async function finishRow(id: number) {
@@ -174,6 +176,8 @@ async function finishRow(id: number) {
     .update({ finished: true })
     .eq("id", id)
     .then((r: any) => console.log(r));
+
+  getResults();
 }
 
 //@ts-ignore
@@ -186,7 +190,7 @@ supabase
   .on(
     "postgres_changes",
     { event: "*", schema: "public", table: tableNames.realtime },
-    getResults
+    getResults()
   )
   .subscribe();
 </script>
