@@ -295,7 +295,7 @@
           >
             {{ item.item }}
             <span class="text-sm opacity-75" v-for="addon in item.options"
-              >+ {{ JSON.parse(addon).id }}
+              >+ {{ JSON.parse(addon).name }}
             </span>
           </th>
           <th
