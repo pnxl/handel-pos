@@ -39,7 +39,7 @@
           class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full overflow-y-auto -mr-2 pr-2"
         >
           <div
-            class="rounded-xl border-gray-300 text-left border-2 flex p-3 flex-col gap-y-3 h-full hover:border-indigo-400 group"
+            class="rounded-xl border-gray-300 text-left border-2 flex p-3 flex-col gap-y-3 hover:border-indigo-400 group"
             v-for="item in finishedList"
             :key="item.id"
           >
@@ -103,7 +103,7 @@
           class="gap-x-4 gap-y-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 h-full overflow-y-auto -mr-2 pr-2"
         >
           <div
-            class="rounded-xl border-gray-300 text-left border-2 flex p-3 flex-col gap-y-3 h-full hover:border-indigo-400 group"
+            class="rounded-xl border-gray-300 text-left border-2 flex p-3 flex-col gap-y-3 hover:border-indigo-400 group"
             v-for="item in unfinishedList"
             :key="item.id"
           >
