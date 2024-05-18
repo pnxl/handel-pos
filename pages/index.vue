@@ -368,7 +368,7 @@
                                 :key="item.name"
                                 :id="item.name"
                                 @click="
-                                  //@ts-expect-error
+                                  //@ts-ignore
                                   currentModifications.unshift({
                                     id: modificationId++,
                                     name: item.name,
@@ -739,6 +739,19 @@
               }}
             </p>
           </div>
+          <div class="w-full">
+            <div class="relative w-full min-w-[200px] h-10 mb-2">
+              <input
+                class="peer w-full h-full bg-transparent focus:outline-0 transition-all border-2 focus:border-2 border-t-gray-300 focus:border-t-transparent p-3 rounded-lg border-gray-300 focus:border-indigo-500"
+                placeholder=""
+                ref="currentAssignment"
+              /><label
+                class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-indigo-500 before:border-gray-300 peer-focus:before:!border-indigo-500 after:border-gray-300 peer-focus:after:!border-indigo-500"
+                >Assign a name to this order...
+              </label>
+            </div>
+          </div>
+
           <button
             v-if="tableNames.history"
             @click="
@@ -750,8 +763,15 @@
                   i.note || '',
                   useCookie('cashier').value || 'Cashier'
                 );
+                sendToKitchen(
+                  currentAssignment.value,
+                  i.name,
+                  i.options || [],
+                  i.note || ''
+                );
               });
               currentOrder.length = 0;
+              currentAssignment.value = '';
             "
             :disabled="currentOrder.length === 0"
             :class="
@@ -760,7 +780,7 @@
                 : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
             "
           >
-            Add to Database
+            Finish Order
           </button>
           <button
             v-else
@@ -821,6 +841,7 @@ const noteText = ref("");
 
 const currentModifications: MenuOption["items"] | [] = reactive([]);
 const currentOrder: Array<Tables<"menu">> = reactive([]);
+const currentAssignment = ref("");
 const orderPrice = ref(0);
 const totalPrice = ref(0);
 
@@ -905,6 +926,24 @@ async function add2Db(
         .then((r: any) => console.log(r));
     }
   }
+}
+
+async function sendToKitchen(
+  ans_assignment: string,
+  ans_item: string,
+  ans_options: Json[],
+  ans_notes: string
+) {
+  //@ts-ignore
+  await supabase
+    .from(tableNames.realtime)
+    .insert({
+      assignment: ans_assignment,
+      item: ans_item,
+      options: ans_options,
+      notes: ans_notes,
+    })
+    .then((r: any) => console.log(r));
 }
 
 onMounted(() => {

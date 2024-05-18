@@ -3,6 +3,7 @@ export const tableNames = {
   users: "cashiers",
   history: "purchases",
   quotes: "quotes",
+  realtime: "kitchen",
 } as const;
 
 export const bucketNames = {
