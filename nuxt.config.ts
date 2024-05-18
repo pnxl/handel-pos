@@ -15,13 +15,8 @@ export default defineNuxtConfig({
     public: {
       databaseUrl: "",
       anonymousApikey: "",
-      locale: "",
-      currency: "",
-      imageBucket: "",
-      itemsDatabase: "",
-      usersBucket: "",
-      usersDatabase: "",
-      historyDatabase: "",
+      locale: "id-id",
+      currency: "Rp ",
     },
   },
   headlessui: {

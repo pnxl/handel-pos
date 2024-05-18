@@ -3,13 +3,15 @@
 This is Handel - a web-based, simple, configurable point-of-sale app. It's aimed towards people running small, temporary businesses - such as garage sales and pop-up shops.
 
 ### It makes running your shop effortless, with features such as...
-- **Calculating item prices on the fly**, and gives you a live preview of the current order's price 💸 
+
+- **Calculating item prices on the fly**, and gives you a live preview of the current order's price 💸
 - **Item modifier management**, so you can add modifiers to an item, such as it's sauces, flavour, and size 🤖
 - **Dead simple order logging**, to keep track of every item you've ever sold; making it easy to see who sold what, how much you earned, and when it was sold 📜
 
 ### Furthermore, Handel is based around core fundamentals that matter...
+
 - Firstly, it's **So. Damn. Simple.** it's designed with ease-of-use in mind, so prioritises a clear and straightforward design. This minimises the learning curve and helps you focus on selling items 🤑
-- For all the nerds, it's **built on rock solid foundations**, taking advantage of the latest technologies in order to stay performant and fast ⚡️ 
+- For all the nerds, it's **built on rock solid foundations**, taking advantage of the latest technologies in order to stay performant and fast ⚡️
 - Lastly, it's **infinitely customisable**. Because of its open source nature, anyone is free to fork it and adjust it to their own needs 😄
 
 ### What applications can it be used for?
@@ -32,19 +34,23 @@ To get started with Handel, fork the project and run your own instance on Cloudf
 
 ### Database setup
 
-You'll also need a Supabase instance, with tables for the following:
-1. Items, to store all your items
-2. Users, for logging who sold what (optional)
-3. History, to log items you've sold (optional)
+You'll also need a Supabase instance, with the following tables:
+
+1. `menu`, to store all your items
+2. `cashiers`, for logging who sold what (optional)
+3. `purchases`, to log items you've sold (optional)
 
 You'll also need two storage buckets, for the following:
-1. Items, to store images of items you're selling.
-2. Users, to store images of the cashiers (required if you have the users database)
+
+1. `menu`, to store images of items you're selling.
+2. `cashiers`, to store images of the cashiers (required if you have the users database)
 
 You can name them any of these anything you'd like. Enter the names in your environment variables (refer to `.env.example`)
 
 For columns in the table, you'll need the following:
-- For the items table:
+
+- For the `menu` table:
+
   - id (int8, leave default)
   - name (text)
   - price (float4)
@@ -52,30 +58,37 @@ For columns in the table, you'll need the following:
   - description (text)
   - options (jsonb, array, default value: `[]`)
 
-- For the users table:
+- For the `cashiers` table:
+
   - fullName (text)
   - image (text, default value: `noimage.png`)
 
-- For the history table:
+- For the `purchases` table:
   - id (int8, leave default)
   - timestamp (timestamptz, leave default)
   - profit (float4)
   - cashier (text, default value: `Cashier`)
   - name (text)
   - options (text, array, default value: `[]`)
- 
+
+The table names are customisable and can be found in `utils/databaseNames.ts`
+
 ### Adding new items
+
 Create a new column in your items table and fill in each row accordingly.
 
 #### Adding images to items
+
 Upload an image of your item to your items storage bucket, taking note of the name. Go back to the table editor, and fill in the image row with the file name of the image you just uploaded.
 
 #### Adding options to items
+
 Each item has the ability to have modifiers and modifier categories (such as size, add-ons, etc.) in a JSON array. The syntax goes as follows:
+
 ```json
 [
   {
-    "category": "Add-ons"
+    "category": "Add-ons",
     "items": [
       {
         "name": "Add-on #1",
@@ -112,12 +125,15 @@ Each item has the ability to have modifiers and modifier categories (such as siz
 ```
 
 ### Adding new users
+
 Create a new column in your users table and fill in each row accordingly.
 
 #### Adding images to items
+
 Upload an image of your item to your users storage bucket, taking note of the name. Go back to the table editor, and fill in the image row with the file name of the image you just uploaded.
 
 ### Does that sound good to you?
+
 If it does - you can learn more about it at [handel.pnxl.dev](https://handel.pnxl.dev/).
 
 For demos, check out [handel-demo.pages.dev](https://handel-demo.pages.dev).
