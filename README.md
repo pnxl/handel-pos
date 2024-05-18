@@ -37,13 +37,13 @@ To get started with Handel, fork the project and run your own instance on Cloudf
 You'll also need a Supabase instance, with the following tables:
 
 1. `menu`, to store all your items
-2. `cashiers`, for logging who sold what (optional)
-3. `purchases`, to log items you've sold (optional)
+2. `cashiers`, for logging who sold what
+3. `purchases`, to log items you've sold
 
 You'll also need two storage buckets, for the following:
 
 1. `menu`, to store images of items you're selling.
-2. `cashiers`, to store images of the cashiers (required if you have the users database)
+2. `cashiers`, to store images of the cashiers
 
 You can name them any of these anything you'd like. Enter the names in your environment variables (refer to `.env.example`)
 
