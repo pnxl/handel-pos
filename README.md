@@ -51,6 +51,7 @@ You can name them any of these anything you'd like. Enter the names in your envi
 For columns in the table, you'll need the following:
 
 - For the `menu` table:
+
   - id (int8, leave default)
   - name (text, disallow nullable)
   - price (float4, disallow nullable)
@@ -59,11 +60,13 @@ For columns in the table, you'll need the following:
   - options (jsonb, array, default value: `[]`)
 
 - For the `cashiers` table:
+
   - id (int8, leave default)
   - fullName (text, disallow)
   - image (text, default value: `noimage.png`)
 
 - For the `purchases` table:
+
   - id (int8, leave default)
   - timestamp (timestamptz, leave default)
   - revenue (float4, disallow nullable)
@@ -74,8 +77,6 @@ For columns in the table, you'll need the following:
 - For the `quotes` table:
   - id (int8, leave default)
   - text (text, disallow nullable)
-
-The table names are customisable and can be found in `utils/databaseNames.ts`
 
 ### Adding new items
 
