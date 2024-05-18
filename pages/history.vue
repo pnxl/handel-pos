@@ -297,6 +297,15 @@
             <span class="text-sm opacity-75" v-for="addon in item.options"
               >+ {{ JSON.parse(addon).name }}
             </span>
+
+            <span
+              class="opacity-75 text-sm"
+              v-if="String(item.notes).trim() !== ''"
+            >
+              <div v-if="String(item.notes).trim() !== 'undefined'">
+                ({{ String(item.notes).trim() }})
+              </div>
+            </span>
           </th>
           <th
             scope="row"
