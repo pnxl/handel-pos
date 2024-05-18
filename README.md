@@ -39,6 +39,7 @@ You'll also need a Supabase instance, with the following tables:
 1. `menu`, to store all your items
 2. `cashiers`, for logging who sold what
 3. `purchases`, to log items you've sold
+4. `quotes`, for the text under the 'Cashier' title
 
 You'll also need two storage buckets, for the following:
 
@@ -132,7 +133,11 @@ Create a new column in your users table and fill in each row accordingly.
 
 Upload an image of your item to your users storage bucket, taking note of the name. Go back to the table editor, and fill in the image row with the file name of the image you just uploaded.
 
-### Does that sound good to you?
+### Adding new quotes
+
+Quotes are randomised from your quotes database. Simply add a new row, and fill in your desired quote(s) into the text column.
+
+## Does that sound good to you?
 
 If it does - you can learn more about it at [handel.pnxl.dev](https://handel.pnxl.dev/).
 

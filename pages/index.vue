@@ -856,7 +856,7 @@ function openNoteModal(id: number) {
 }
 
 async function getResults() {
-  const quotes = (await supabase.from("quotes").select()).data;
+  const quotes = (await supabase.from(tableNames.quotes).select()).data;
   quote.value = quotes
     ? quotes[Math.floor(Math.random() * quotes.length)].text
     : defaultQuote;
