@@ -792,8 +792,7 @@ const supabase = createClient<Database>(
   config.public.anonymousApikey
 );
 
-const defaultQuote =
-  "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.";
+const defaultQuote = "Welcome to Handel.";
 
 const usersList: Ref<Array<Tables<"cashiers">> | null> = ref(null);
 const quote = ref("");
