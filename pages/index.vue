@@ -7,7 +7,7 @@
           {{ quote }}
         </span>
       </p>
-      <HeadlessMenu as="div" class="my-auto">
+      <HeadlessMenu as="div" class="my-auto" v-if="tableNames.users">
         <div
           :class="
             (!useCookie('cashier').value ? 'animate-pulse-bg' : '') +
@@ -15,7 +15,6 @@
           "
         >
           <HeadlessMenuButton
-            v-if="config.public.usersDatabase !== ''"
             class="my-auto flex relative z-10 flex-row group w-56 md:w-72 justify-between gap-x-2 bg-gray-50 py-3 px-6 rounded-xl border border-gray-200 hover:border-indigo-500 hover:bg-indigo-100"
           >
             <div
@@ -72,11 +71,11 @@
                     useCookie('cashier').value = user.fullName;
                     useCookie(
                       'cashierImage'
-                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`;
+                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.users}/${user.image}`;
                   "
                 >
                   <img
-                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`"
+                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.users}/${user.image}`"
                     class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
                   />
                   <p class="my-auto line-clamp-1 text-ellipsis text-left">
@@ -90,11 +89,11 @@
                     useCookie('cashier').value = user.fullName;
                     useCookie(
                       'cashierImage'
-                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`;
+                    ).value = `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.users}/${user.image}`;
                   "
                 >
                   <img
-                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.usersBucket}/${user.image}`"
+                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.users}/${user.image}`"
                     class="md:block hidden rounded-full my-auto h-8 object-cover aspect-square border border-transparent group-hover:border-indigo-500"
                   />
                   <p class="my-auto line-clamp-1 text-ellipsis text-left">
@@ -251,8 +250,8 @@
                   modalCurrentId = orderId++;
                   modalCurrentItem = item.name || 'No Name';
                   modalCurrentImage =
-                    `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}` ||
-                    `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+                    `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/${item.image}` ||
+                    `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.jpg`;
                   modalCurrentPrice = item.price || 0;
                   modalCurrentModifications = toRaw(
                     item.options
@@ -263,7 +262,7 @@
                   currentOrder.unshift({
                     id: orderId++,
                     name: item.name,
-                    image: `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`,
+                    image: `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/${item.image}`,
                     price: item.price,
                     options: [],
                     note: '',
@@ -274,7 +273,7 @@
               <div class="p-3 flex flex-col gap-y-2 h-full justify-between">
                 <div class="flex flex-col gap-y-2">
                   <img
-                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/${item.image}`"
+                    :src="`${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/${item.image}`"
                     class="rounded-xl w-full object-cover aspect-square"
                   />
                   <p class="text-lg font-semibold">{{ item.name }}</p>
@@ -741,13 +740,14 @@
             </p>
           </div>
           <button
-            v-if="config.public.historyDatabase !== ''"
+            v-if="tableNames.history"
             @click="
               currentOrder.forEach((i) => {
                 add2Db(
                   i.name,
                   i.price || 0,
                   i.options || [],
+                  i.note || '',
                   useCookie('cashier').value || 'Cashier'
                 );
               });
@@ -783,7 +783,7 @@
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
 import type { Database, Json, MenuOption, Tables } from "~/types/supabase";
-import { tableNames } from "~/utils/databaseNames";
+import { tableNames, bucketNames } from "~/utils/databaseNames";
 
 const config = useRuntimeConfig();
 
@@ -807,7 +807,7 @@ const modalIsOpen = ref(false);
 const modalCurrentId = ref(1);
 const modalCurrentItem = ref("No Name");
 const modalCurrentImage = ref(
-  `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
+  `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.png`
 );
 const modalCurrentPrice = ref(0);
 const modalCurrentModifications: Ref<MenuOption[] | []> = ref([]);
@@ -816,7 +816,7 @@ const noteIsOpen = ref(false);
 const noteCurrentId = ref(1);
 const noteCurrentItem = ref("No Name");
 const noteCurrentImage = ref(
-  `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.png`
+  `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.png`
 );
 const noteText = ref("");
 
@@ -831,7 +831,7 @@ function closeItemModal() {
     modalCurrentId.value = 1;
     modificationId.value = 1;
     modalCurrentItem.value = "No Name";
-    modalCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+    modalCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.jpg`;
     modalCurrentPrice.value = 0;
     currentModifications.length = 0;
   }, 250);
@@ -846,7 +846,7 @@ function closeNoteModal() {
   setTimeout(() => {
     noteCurrentId.value = 1;
     noteCurrentItem.value = "No Name";
-    noteCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${config.public.imageBucket}/noimage.jpg`;
+    noteCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.jpg`;
     noteText.value = "";
   }, 250);
 }
@@ -877,6 +877,7 @@ async function add2Db(
   ans_item: string,
   ans_revenue: number,
   ans_options: Json[],
+  ans_notes: string,
   ans_cashier: string
 ) {
   if (config.public.historyDatabase !== "") {
@@ -888,6 +889,7 @@ async function add2Db(
           item: ans_item,
           revenue: ans_revenue,
           options: ans_options,
+          notes: ans_notes,
           cashier: ans_cashier,
         })
         .then((r: any) => console.log(r));
@@ -899,6 +901,7 @@ async function add2Db(
           item: ans_item,
           revenue: ans_revenue,
           options: ans_options,
+          notes: ans_notes,
         })
         .then((r: any) => console.log(r));
     }
