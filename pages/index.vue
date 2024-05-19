@@ -752,48 +752,183 @@
             </div>
           </div>
 
-          <button
-            v-if="tableNames.history"
-            @click="
-              currentOrder.forEach((i) => {
-                add2Db(
-                  i.name,
-                  i.price || 0,
-                  i.options || [],
-                  i.note || '',
-                  useCookie('cashier').value || 'Cashier'
-                );
-                sendToKitchen(
-                  currentAssignment.value,
-                  i.name,
-                  i.options || [],
-                  i.note || ''
-                );
-              });
-              currentOrder.length = 0;
-              currentAssignment.value = '';
-            "
-            :disabled="currentOrder.length === 0"
-            :class="
-              currentOrder.length !== 0
-                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
-                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
-            "
-          >
-            Finish Order
-          </button>
-          <button
-            v-else
-            @click="currentOrder.length = 0"
-            :disabled="currentOrder.length === 0"
-            :class="
-              currentOrder.length !== 0
-                ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
-                : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
-            "
-          >
-            Finish Order
-          </button>
+          <TransitionGroup tag="div">
+            <button
+              @click="openPaymentModal()"
+              :disabled="currentOrder.length === 0"
+              :class="
+                currentOrder.length !== 0
+                  ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
+                  : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
+              "
+            >
+              Charge {{ config.public.currency
+              }}{{
+                (totalPrice = currentOrder.reduce(
+                  (acc, item) => acc + (item.price || 0),
+                  0
+                )).toLocaleString(config.public.locale)
+              }}
+            </button>
+            <HeadlessTransitionRoot appear :show="paymentIsOpen" as="template">
+              <HeadlessDialog
+                as="div"
+                @close="closePaymentModal()"
+                class="relative z-30"
+              >
+                <HeadlessTransitionChild
+                  as="template"
+                  enter="duration-[250ms] ease-out"
+                  enter-from="opacity-0"
+                  enter-to="opacity-100"
+                  leave="duration-[250ms] ease-in"
+                  leave-from="opacity-100"
+                  leave-to="opacity-0"
+                >
+                  <div class="fixed inset-0 bg-gray-950/50" />
+                </HeadlessTransitionChild>
+                <div
+                  class="fixed inset-0 flex flex-col justify-center overflow-y-auto"
+                >
+                  <div
+                    class="flex flex-col items-center h-[90%] overflow-y-auto justify-center md:p-4 text-center"
+                  >
+                    <HeadlessTransitionChild
+                      as="template"
+                      enter="duration-[250ms] ease-out"
+                      enter-from="scale-90 opacity-0"
+                      enter-to="scale-100 opacity-100"
+                      leave="duration-[250ms] ease-in"
+                      leave-from="scale-100 opacity-100"
+                      leave-to="scale-90 opacity-0"
+                    >
+                      <HeadlessDialogPanel
+                        class="w-full max-w-[32rem] flex flex-col gap-y-8 transform overflow-hidden md:rounded-2xl border border-gray-200 bg-gray-50 p-6 text-left align-middle shadow-xl transition-all"
+                      >
+                        <div
+                          class="flex flex-row justify-between w-full gap-x-4"
+                        >
+                          <div class="my-auto">
+                            <HeadlessDialogTitle
+                              as="h1"
+                              class="text-xl font-semibold"
+                              >Payment
+                            </HeadlessDialogTitle>
+                          </div>
+                          <button @click="closePaymentModal()">
+                            <Icon
+                              name="mdi:close"
+                              class="text-2xl my-auto hover:text-red-600"
+                            />
+                          </button>
+                        </div>
+                        <div class="-mt-1 flex flex-col gap-y-2">
+                          <div class="flex flex-row justify-between">
+                            <p class="opacity-75 my-auto">
+                              {{ currentOrder.length }} items
+                            </p>
+                            <p class="font-medium my-auto">
+                              {{ config.public.currency
+                              }}{{
+                                (totalPrice = currentOrder.reduce(
+                                  (acc, item) => acc + (item.price || 0),
+                                  0
+                                )).toLocaleString(config.public.locale)
+                              }}
+                            </p>
+                          </div>
+                          <div class="flex flex-row justify-between">
+                            <p class="opacity-75 my-auto">Service Fee — 0%</p>
+                            <p class="font-medium my-auto">
+                              {{ config.public.currency
+                              }}{{
+                                Math.round(
+                                  (totalPrice = currentOrder.reduce(
+                                    (acc, item) => acc + (item.price || 0),
+                                    0
+                                  )) * 0
+                                ).toLocaleString(config.public.locale)
+                              }}
+                            </p>
+                          </div>
+                          <div class="flex flex-row justify-between">
+                            <p class="opacity-75 my-auto">Tax — 0%</p>
+                            <p class="font-medium my-auto">
+                              {{ config.public.currency
+                              }}{{
+                                Math.round(
+                                  (totalPrice = currentOrder.reduce(
+                                    (acc, item) => acc + (item.price || 0),
+                                    0
+                                  )) * 0
+                                ).toLocaleString(config.public.locale)
+                              }}
+                            </p>
+                          </div>
+                          <hr class="my-2" />
+                          <div class="flex flex-row justify-between">
+                            <p class="font-medium my-auto">Total Price</p>
+                            <p class="font-medium my-auto">
+                              {{ config.public.currency
+                              }}{{
+                                (totalPrice =
+                                  currentOrder.reduce(
+                                    (acc, item) => acc + (item.price || 0),
+                                    0
+                                  ) +
+                                  currentOrder.reduce(
+                                    (acc, item) => acc + (item.price || 0),
+                                    0
+                                  ) *
+                                    0 +
+                                  currentOrder.reduce(
+                                    (acc, item) => acc + (item.price || 0),
+                                    0
+                                  ) *
+                                    0).toLocaleString(config.public.locale)
+                              }}
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          @click="
+                            currentOrder.forEach((i) => {
+                              add2Db(
+                                i.name,
+                                i.price || 0,
+                                i.options || [],
+                                i.note || '',
+                                useCookie('cashier').value || 'Cashier'
+                              );
+                              sendToKitchen(
+                                currentAssignment.value,
+                                i.name,
+                                i.options || [],
+                                i.note || ''
+                              );
+                            });
+                            currentOrder.length = 0;
+                            currentAssignment.value = '';
+
+                            closePaymentModal();
+                          "
+                          :disabled="currentOrder.length === 0"
+                          :class="
+                            currentOrder.length !== 0
+                              ? 'w-full py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 font-medium text-gray-50'
+                              : 'w-full py-2 rounded-full bg-gradient-to-r from-gray-400 to-gray-400 font-medium text-gray-50'
+                          "
+                        >
+                          Finish Order
+                        </button>
+                      </HeadlessDialogPanel>
+                    </HeadlessTransitionChild>
+                  </div>
+                </div>
+              </HeadlessDialog>
+            </HeadlessTransitionRoot>
+          </TransitionGroup>
         </div>
       </div>
     </div>
@@ -845,6 +980,8 @@ const currentAssignment = ref("");
 const orderPrice = ref(0);
 const totalPrice = ref(0);
 
+const paymentIsOpen = ref(false);
+
 function closeItemModal() {
   modalIsOpen.value = false;
   setTimeout(() => {
@@ -874,6 +1011,22 @@ function closeNoteModal() {
 function openNoteModal(id: number) {
   noteIsOpen.value = true;
   noteCurrentId.value = id;
+}
+
+function closePaymentModal() {
+  paymentIsOpen.value = false;
+  // setTimeout(() => {
+  //   modalCurrentId.value = 1;
+  //   modificationId.value = 1;
+  //   modalCurrentItem.value = "No Name";
+  //   modalCurrentImage.value = `${config.public.databaseUrl}/storage/v1/object/public/${bucketNames.items}/noimage.jpg`;
+  //   modalCurrentPrice.value = 0;
+  //   currentModifications.length = 0;
+  // }, 250);
+}
+
+function openPaymentModal() {
+  paymentIsOpen.value = true;
 }
 
 async function getResults() {
