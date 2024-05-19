@@ -39,7 +39,7 @@ You'll also need a Supabase instance, with the following tables:
 1. `menu`, to store all your items
 2. `cashiers`, for logging who sold what
 3. `purchases`, to log items you've sold
-4. `kitchen`, for a kitchen display to receive orders
+4. `kitchen`, for a kitchen display to receive orders (make sure Supabase Realtime is enabled!)
 5. `quotes`, for the text under the 'Cashier' title
 
 You'll also need two storage buckets, for the following:
@@ -76,7 +76,7 @@ For columns in the table, you'll need the following:
   - options (text, array, default value: `[]`)
   - notes (text, array, default value: ``)
 
-- For the `kitchen` table:
+- For the `kitchen` table: (enable Supabase Realtime!)
 
   - id (int8, leave default)
   - timestamp (timestamptz, leave default)
