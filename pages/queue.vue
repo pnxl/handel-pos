@@ -127,7 +127,7 @@ supabase
   .on(
     "postgres_changes",
     { event: "*", schema: "public", table: tableNames.realtime },
-    getResults()
+    getResults
   )
   .subscribe();
 
