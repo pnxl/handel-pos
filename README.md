@@ -83,7 +83,7 @@ For columns in the table, you'll need the following:
   - assignment (text, default value: `No Name`, disallow nullable)
   - item (text, disallow nullable)
   - options (text, array, default value: `[]`)
-  - notes (text, array, default value: ``)
+  - notes (text, default value: ``)
 
 - For the `quotes` table:
   - id (int8, leave default)
