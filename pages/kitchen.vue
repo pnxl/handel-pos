@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { createClient } from "@supabase/supabase-js";
-import type { Database, Json, MenuOption, Tables } from "~/types/supabase";
+import type { Database, Tables } from "~/types/supabase";
 import { tableNames } from "~/utils/databaseNames";
 
 const config = useRuntimeConfig();
