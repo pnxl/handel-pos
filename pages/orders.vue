@@ -201,7 +201,7 @@ function openKitchenDisplay() {
     window.open(
       "/kitchen",
       "Handel Kitchen Display",
-      "status=no,location=no,toolbar=no,menubar=no,width=0,height=0"
+      "location=no,toolbar=no,menubar=no,width=0,height=0"
     );
   }
 }
@@ -210,8 +210,8 @@ function openQueueDisplay() {
   if (process.client) {
     window.open(
       "/queue",
-      "Handel Kitchen Display",
-      "status=no,location=no,toolbar=no,menubar=no,width=0,height=0"
+      "Handel Queue Display",
+      "location=no,toolbar=no,menubar=no,width=0,height=0"
     );
   }
 }
